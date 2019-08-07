@@ -1,0 +1,90 @@
+# hostname (and path) to the root eg. http://spf13.com/
+baseurl = "/"
+
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+# Site title
+title = "rTales: DataScience in Short"
+
+# Copyright
+copyright = "(c) 2019 Alvaro Aguado"
+
+# Language
+languageCode = "en-EN"
+
+# Metadata format
+# "yaml", "toml", "json"
+metaDataFormat = "yaml"
+
+# Theme to use (located in /themes/THEMENAME/)
+theme = "hyde-y"
+
+# Pagination
+paginate = 10
+paginatePath = "page"
+
+# Enable Disqus integration
+disqusShortname = ""
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+    code = "/:slug/"
+
+[taxonomies]
+    tag = "tags"
+    topic = "topics"
+
+[author]
+    name = "yourname"
+    email = "alvaroaguado3@gmail.com"
+
+#
+# All parameters below here are optional and can be mixed and matched.
+#
+
+[params]
+    # You can use markdown here.
+    brand = '![rTales](C:/Users/AGUADA03/Desktop/rTales-logo.png)'
+    topline = "Solve practical problems with Data Science and Technology"
+    footline = "It's hard but you gotta keep trying"
+
+    # Sidebar position
+    # false, true, "left", "right"
+    sidebar = "left"
+
+    # Text for the top menu link, which goes the root URL for the site.
+    # Default (if omitted) is "Home".
+    home = "home"
+
+    # Select a syntax highight for highlight.js
+    # Check the static/css/highlight directory for options.
+    # Leave unset to fall back to default hugo highlighter instead of highlight.js
+    highlight = "default"
+
+    # Google Analytics.
+    googleAnalytics = ""
+
+    # Sidebar social links.
+    github = "alvaroaguado3" # Your Github profile ID
+    bitbucket = "" # Your Bitbucket profile ID
+    linkedin = "https://www.linkedin.com/in/alvaro-aguado-74314120/" # Your LinkedIn profile ID (from public URL)
+    googleplus = "" # Your Google+ profile ID
+    facebook = "" # Your Facebook profile ID
+    twitter = "https://twitter.com/neuronalnet" # Your Twitter profile ID
+    youtube = ""  # Your Youtube channel ID
+    flattr = ""  # populate with your flattr uid
+    flickr = "" # Your Flickr profile ID
+    vimeo = "" # Your Vimeo profile ID
+
+    # Sidebar RSS link: will only show up if there is a RSS feed
+    # associated with the current page
+    rss = false
+
+[blackfriday]
+    angledQuotes = true
+    fractions = false
+    hrefTargetBlank = false
+    latexDashes = true
+    plainIdAnchors = true
+    extensions = []
+    extensionmask = []
