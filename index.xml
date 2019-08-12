@@ -25,5 +25,16 @@
 The function lm does not provide a way to restrict coefficients. Instead we can use the function nls under the algorithm port.</description>
     </item>
     
+    <item>
+      <title>What is rTales? Who did this?</title>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/about/</guid>
+      <description>After some research about setting up a Blogdown site, conceptualization of ideas and also some inevitable procrastination, finally rTales has come to fruition.
+What is rTales?rTales is (yet another) Data Science blog, but cutting the fluff. The idea is to answer practical data science questions first with a Reprex. This term stands for ‘Reproducible example’ and it was coined by Romain Francois.
+New favorite word smash: reprex, for {rep}roducible {ex}ample.</description>
+    </item>
+    
   </channel>
 </rss>
