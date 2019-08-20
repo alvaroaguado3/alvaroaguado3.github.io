@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Forcing Regression Coefficients in R - Part II Lasso  &middot; rTales: DataScience in Short</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="description" />
+
+<meta name="keywords" content="key, words, ">
+
+
+<meta property="og:title" content="Forcing Regression Coefficients in R - Part II Lasso  &middot; rTales: DataScience in Short ">
+<meta property="og:site_name" content="rTales: DataScience in Short"/>
+<meta property="og:url" content="/2019/08/17/forcing-regression-coefficients-in-r-part-ii-lasso/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="description"/>
+<meta property="og:article:published_time" content="2019-08-17T00:00:00Z" />
+<meta property="og:article:modified_time" content="2019-08-17T00:00:00Z" />
+
+  
+    
+<meta property="og:article:tag" content="key">
+    
+<meta property="og:article:tag" content="words">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@https://twitter.com/neuronalnet" />
+<meta name="twitter:creator" content="@https://twitter.com/neuronalnet" />
+<meta name="twitter:title" content="Forcing Regression Coefficients in R - Part II Lasso" />
+<meta name="twitter:description" content="description" />
+<meta name="twitter:url" content="/2019/08/17/forcing-regression-coefficients-in-r-part-ii-lasso/" />
+<meta name="twitter:domain" content="/">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Forcing Regression Coefficients in R - Part II Lasso",
+    "author": {
+      "@type": "Person",
+      "name": "Alvaro Aguado"
+    },
+    "datePublished": "2019-08-17",
+    "description": "description",
+    "wordCount":  1074 
+  }
+</script>
+
+
+
+<link rel="canonical" href="/2019/08/17/forcing-regression-coefficients-in-r-part-ii-lasso/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+<link href="/favicon.png" rel="icon" type="image/x-icon" />
+
+<meta name="generator" content="Hugo 0.56.3" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-145400836-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <img src="/rTales-logo.png">
+  <a class="baselink" href="/">
+  
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Solve practical problems with Data Science and Technology
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="/">Home</a>
+
+
+  
+<a href="/about">About</a>
+
+<a href="/post" title="Show list of posts">Posts</a>
+
+<a href="/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" rel="me" aria-label="Email" href="mailto:alvaroaguado3@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" rel="me" aria-label="Github" href="https://github.com/alvaroaguado3">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+<a id="contact-link-linkedin" class="contact_link" rel="me" aria-label="LinkedIn" href="https://www.linkedin.com/in/https://www.linkedin.com/in/alvaro-aguado-74314120/">
+  <span class="fa fa-linkedin-square"></span></a>
+
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" rel="me" aria-label="Twitter" href="https://twitter.com/https://twitter.com/neuronalnet">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Forcing Regression Coefficients in R - Part II Lasso
+</h1>
+
+  <div class="metas">
+<time datetime="2019-08-17">17 Aug, 2019</time>
+
+
+  
+    &middot; by Alvaro Aguado
+  
+  &middot; Read in about 6 min
+  &middot; (1074 Words)
+  <br>
+  
+<a class="label" href="/tags/regression">regression</a>
+
+<a class="label" href="/tags/marketing-mix">marketing mix</a>
+
+<a class="label" href="/tags/constrained">constrained</a>
+
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+
+<div id="question" class="section level3">
+<h3>Question:</h3>
+<p>I’m working on a regression model and I need to force the regression coefficients to be positive. How can I accomplish this in R?</p>
+</div>
+<div id="solution" class="section level3">
+<h3>Solution:</h3>
+<p>For linear model regression model with restricted coefficients you have 3 options: Linear with nls, Bayes with brms and Lasso. Here we will look at <code>Linear Model with Lasso using glmnet</code></p>
+<p>In this case glmnet provides a convenient way to restrict coefficients regularizing the coefficients. Here’s how to accomplish the question using R</p>
+<pre class="r"><code>if (!require(glmnet)) install.packages(&quot;glmnet&quot;)
+if (!require(tidyverse)) install.packages(&quot;tidyverse&quot;)
+# Install kable to visualize tables
+if (!require(knitr)) install.packages(&quot;knitr&quot;)
+
+# Store Independent variables into a Matrix
+X &lt;- model.matrix(Sepal.Length~.,data = iris)[,-1] 
+
+# Store dependent variable into a vector (in this case Sepal.Length)
+y &lt;- iris$Sepal.Length 
+
+# Choose Constrained Coefficients. In this case positive between 0 and Inf
+lb &lt;- rep(0,length(colnames( X )))
+ub &lt;- rep(Inf,length(colnames( X )))
+
+# Now we have a 0 as lower bound for each variable in the model in the vector lb
+# And we have a vector of Inf as upper bound for each variable in the model under ub
+
+# Pick optimal lambda (this is optional as you can pick your own lambda)
+cv.glmnet(x = X,y = y,  
+          lower.limits = lb,
+          upper.limits = ub) -&gt; cv_las1
+cv_las1$lambda.min -&gt; lambda
+
+# Run glmnet (with min Lambda)
+glmnet(x = X,y = y,  
+       lower.limits = lb,
+       upper.limits = ub,
+       lambda = lambda) -&gt; las1
+
+# See coefs
+coef(las1) %&gt;% as.matrix() %&gt;% as.data.frame() -&gt; c.fit1
+colnames(c.fit1) &lt;- c(&quot;Coefficient&quot;)
+
+# See in a neat table
+knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code></pre>
+<table>
+<caption>(#tab:Linear_model)Forced Positive Coefficients</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">Coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(Intercept)</td>
+<td align="right">2.4349902</td>
+</tr>
+<tr class="even">
+<td>Sepal.Width</td>
+<td align="right">0.5490080</td>
+</tr>
+<tr class="odd">
+<td>Petal.Length</td>
+<td align="right">0.4599719</td>
+</tr>
+<tr class="even">
+<td>Petal.Width</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td>Speciesversicolor</td>
+<td align="right">0.0038050</td>
+</tr>
+<tr class="even">
+<td>Speciesvirginica</td>
+<td align="right">0.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="business-application" class="section level3">
+<h3>Business Application</h3>
+<p>Glmnet is very useful when we are dealing with more columns than rows in our dataset. Lasso will shrink to 0, those coefficients that are not that useful compared to other variables.</p>
+<p>I have used this approach for calculating price elasticity. This is because sometimes the data available to measure the fluctuation in price elasticity has a very short range of price points. With a small amount of data points we could easily overfit the data set and in turn get extreme values for Price point elasticities. Lasso can shrink these coefficients to more realistic values. We can even force Price to be part of the model by giving additional weight to the price variable. I provide an example of this below.</p>
+<p>We have to consider that some variables can’t be used with the forced positive coefficient. It could be the case that no matter how we constraint the coefficient, the variable coefficient will quickly drop to 0. This is because the data is telling us the variable can’t really be positive.</p>
+</div>
+<div id="in-more-detail" class="section level3">
+<h3>In more detail</h3>
+<p>We can see what happened to the coefficients while the shrinkage process took place</p>
+<pre class="r"><code>if (!require(plotmo)) install.packages(&quot;plotmo&quot;)
+
+glmnet(x = X,y = y,  
+       lower.limits = lb,
+       upper.limits = ub) -&gt; las2
+
+
+plot_glmnet(las2,xvar = &quot;lambda&quot;)
+  title(sub = &quot;Positive Coefficients Only&quot;)
+abline(v = log(lambda))</code></pre>
+<p><img src="/post/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Q3-1.png" width="672" /></p>
+<p>It’s very interesting to compare this to what would happen if we did not have any restriction in the coefs.</p>
+<p>Let’s see them side by side</p>
+<pre class="r"><code>if (!require(plotmo)) install.packages(&quot;plotmo&quot;)
+
+cv.glmnet(x = X,y = y) -&gt; cv_las3
+cv_las3$lambda.min -&gt; lambda2
+
+glmnet(x = X,y = y) -&gt; las3
+
+par(mfrow = c(1,2))
+
+plot_glmnet(las2,xvar = &quot;lambda&quot;)
+  title(sub = &quot;Positive Coefficients Only&quot;)
+abline(v = log(lambda))
+
+plot_glmnet(las3,xvar = &quot;lambda&quot;)
+  title(sub = &quot;Positive and Negative Coefficients allowed&quot;)
+abline(v = log(lambda2))</code></pre>
+<p><img src="/post/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Q4-1.png" width="768" /></p>
+<p>We see how Petal Width will not take positive coefficients even if we coerce the positive side of the values. This is because when we include Petal Length, the high correlation between the two variables makes it choose one for the upward relationship and the remaining one for the downward variance</p>
+<pre class="r"><code># Save variables into y,x1,x2 to simplify formulas
+iris$Sepal.Length -&gt; y 
+iris$Petal.Length -&gt; x1 
+iris$Petal.Width -&gt; x2
+
+# Regress y by each of the independent variables and each independent variable from each other
+lm(y~x1) -&gt; m1
+lm(y~x2) -&gt; m2
+lm(x1~x2) -&gt; m3
+lm(x2~x1) -&gt; m4
+
+# Get the residuals with respect to each independent variable
+resid(m1) -&gt; r1
+resid(m2) -&gt; r2
+resid(m3) -&gt; r3
+resid(m4) -&gt; r4
+
+par(mfrow = c(2,2),mar=c(2,2,2,2))
+
+# Get the relationship between y and x1 (No other covariables)
+plot(x1,y,pch = 20,col=&#39;grey&#39;,main = &#39;Sepal.Length ~ Petal.Length&#39;)
+abline(m1,col = &#39;red&#39;)
+text(x=2,y=7.5,labels =paste0(&quot;r = &quot;,round(cor(y,x1),2)))
+
+# Get the relationship between y and x2 (No other covariables)
+plot(x2,y,pch = 20,col=&#39;grey&#39;,main = &#39;Sepal.Length ~ Petal.Width&#39;)
+abline(m2,col = &#39;red&#39;)
+text(x=0.5,y=7.5,labels =paste0(&quot;r = &quot;,round(cor(y,x2),2)))
+
+# Get residual correlation after factoring x2 from x1  
+plot(r1,r4,pch = 20,col=&#39;grey&#39;,main = &#39;Resid.Petal.Width ~ Resid.Petal.Length&#39;)
+abline(lm(r4~r1),col = &#39;red&#39;)
+text(x=-1,y=0.4,labels =paste0(&quot;r = &quot;,round(cor(r1,r4),2)))
+
+
+# Get residual correlation after factoring x1 from x2
+plot(r2,r3,pch = 20,col=&#39;grey&#39;,main = &#39;Resid.Petal.Length ~ Resid.Petal.Width&#39;)
+abline(lm(r3~r2),col = &#39;red&#39;)
+text(x=-1,y=1,labels =paste0(&quot;r = &quot;,round(cor(r2,r3),2)))</code></pre>
+<p><img src="/post/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Partial%20Plot-1.png" width="672" /></p>
+<p>Now the last thing to test is to find out how good is the fit of this model compared to regular lm and unrestricted lasso model.</p>
+<pre class="r"><code>require(ggplot)
+require(cowplot) 
+# Sort dependent and independent variables to visualize fit
+y[order(y)] -&gt; Yy
+X[order(y),] -&gt; Xy
+predict(las1,s= lambda,newx = Xy) -&gt; p1
+predict(las3,s= lambda2,newx = Xy) -&gt; p2
+data.frame(Yy,p1= p1[,1],p2= p2[,1]) -&gt; Z
+
+cols = c(&quot;Lasso Restricted&quot; = &quot;firebrick&quot;,
+         &quot;Lasso Unrestricted&quot; = &quot;blue&quot;)
+
+# Plot fits, blue is forced coefficients 
+ggplot(Z,aes(x = seq(1:length(Yy)),y = Yy)) + 
+  geom_point() +
+  geom_line(aes(y = p1,colour = &quot;Lasso Restricted&quot;),size = 1) +
+  geom_line(aes(y = p2,colour = &quot;Lasso Unrestricted&quot;),size = 1) +
+  ylab(&quot;Sepal Length (cm)&quot;) +
+  scale_colour_manual(name=&quot;Regression Lines&quot;,values = cols) +
+  scale_x_continuous(name = &quot;Cases&quot;,
+                     breaks = seq(10,150,by = 10)) +
+    ggtitle(label = &quot;Estimated Sepal.Length by All Other Vars&quot;,
+            subtitle = &quot;Regular Lasso Method vs. Restricted positive coefficients&quot;) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1,size = 8),
+        legend.position = &quot;top&quot;,
+        legend.text = element_text(size = 8),
+        legend.title = element_text(size = 10),
+        plot.title = element_text(size = 12, face = &quot;bold&quot;)) </code></pre>
+<p><img src="/post/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/test_Model-1.png" width="672" /></p>
+<p>We see the model is somewhat erratic, but on average it fits the data well, except for the extreme cases of the dependent variable. But the main concept we should keep in mind is that both models perform similarly at fitting the data points.</p>
+<p>We would have to now assess if the model is good when predicting Cross Validated data which the model in lasso allows to look.</p>
+<pre class="r"><code>par(mfrow=c(1,2))
+plot(cv_las1,main = &quot;Restricted Positive Coefficients&quot;)
+plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
+<p><img src="/post/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Cross_Val-1.png" width="672" /></p>
+<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.116 while the unrestricted model has an error of 0.098, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
+</div>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="/2019/08/14/forcing-regression-coefficients-in-r-part-iii-bayesian/" title="Forcing Regression Coefficients in R - Part III Bayesian">
+      Previous
+    </a>
+    
+
+    
+
+  
+
+
+</div>
+
+  
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  It&rsquo;s hard but you gotta keep trying
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  &copy; 2019 Alvaro Aguado
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

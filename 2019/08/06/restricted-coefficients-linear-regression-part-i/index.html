@@ -59,7 +59,7 @@
     },
     "datePublished": "2019-08-06",
     "description": "",
-    "wordCount":  1636 
+    "wordCount":  1635 
   }
 </script>
 
@@ -195,7 +195,7 @@
     &middot; by Alvaro Aguado
   
   &middot; Read in about 8 min
-  &middot; (1636 Words)
+  &middot; (1635 Words)
   <br>
   
 <a class="label" href="/tags/regression">regression</a>
@@ -483,7 +483,7 @@ formula2 &lt;- paste0(&quot;mpg ~ 0 +&quot; , paste0(&quot;offset(&quot;,coef(fi
 lm(formula2 , data = mtcars) %&gt;% anova(.,fit4) %&gt;% broom::tidy()</code></pre>
 <pre><code>## # A tibble: 2 x 6
 ##   res.df   rss    df sumsq statistic p.value
-## *  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
 ## 1     32  311.    NA   NA      NA    NA     
 ## 2     21  147.    11  164.      2.12  0.0671</code></pre>
 <p>Results from Anova show that both models are not significantly different since p-value &gt; 0.05. I always consider this threshold a little arbitrary, and the analyst should personally estimate whether this difference is significant or not, and validate results visually, as we are going to do below</p>
@@ -527,6 +527,16 @@ ggplot(mtcars,aes(x = 1:length(mpg),y = mpg)) +
   <div class="container navigation no-print">
   <h2>Navigation</h2>
   
+  
+
+    
+
+    
+    <a class="next" href="/2019/08/14/forcing-regression-coefficients-in-r-part-iii-bayesian/" title="Forcing Regression Coefficients in R - Part III Bayesian">
+      Next
+    </a>
+    
+
   
 
 
