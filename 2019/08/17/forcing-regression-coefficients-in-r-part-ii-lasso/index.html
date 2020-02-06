@@ -68,7 +68,7 @@
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
 <link href="/favicon.png" rel="icon" type="image/x-icon" />
 
-<meta name="generator" content="Hugo 0.56.3" />
+<meta name="generator" content="Hugo 0.64.0" />
 
   <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -267,15 +267,15 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 <tbody>
 <tr class="odd">
 <td>(Intercept)</td>
-<td align="right">2.4349902</td>
+<td align="right">2.4812335</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.5490080</td>
+<td align="right">0.5372833</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4599719</td>
+<td align="right">0.4575428</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
@@ -283,7 +283,7 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 </tr>
 <tr class="odd">
 <td>Speciesversicolor</td>
-<td align="right">0.0038050</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Speciesvirginica</td>
@@ -408,7 +408,7 @@ ggplot(Z,aes(x = seq(1:length(Yy)),y = Yy)) +
 plot(cv_las1,main = &quot;Restricted Positive Coefficients&quot;)
 plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
 <p><img src="/post/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Cross_Val-1.png" width="672" /></p>
-<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.116 while the unrestricted model has an error of 0.098, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
+<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.115 while the unrestricted model has an error of 0.101, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
 </div>
 
 </div>
@@ -421,11 +421,15 @@ plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
   
 
     
-    <a class="prev" href="/2019/08/14/forcing-regression-coefficients-in-r-part-iii-bayesian/" title="Forcing Regression Coefficients in R - Part III Bayesian">
+    <a class="prev" href="/2019/08/06/restricted-coefficients-linear-regression-part-i/" title="Forcing Regression Coefficients in R - Part I">
       Previous
     </a>
     
 
+    
+    <a class="next" href="/2019/08/18/forcing-regression-coefficients-in-r-part-iii-bayesian/" title="Forcing Regression Coefficients in R - Part III Bayesian">
+      Next
+    </a>
     
 
   
@@ -461,7 +465,7 @@ plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
   
 <div class="container copyright">
   
-  &copy; 2019 Alvaro Aguado
+  (c) 2019 Alvaro Aguado
 
 
 </div>
