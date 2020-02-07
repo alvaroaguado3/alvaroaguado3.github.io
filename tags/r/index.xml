@@ -1,29 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>R on rTales: DataScience in Short</title>
-    <link>/tags/r/</link>
-    <description>Recent content in R on rTales: DataScience in Short</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-EN</language>
-    <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
-    <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
-    <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>Forcing Regression Coefficients in R - Part I</title>
-      <link>/forcing-regression-coefficients-in-r-part-i/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
-      <guid>/forcing-regression-coefficients-in-r-part-i/</guid>
-      <description>Question:I’m working on a regression model and I need to force the regression coefficients to be positive. How can I accomplish this in R?
-Solution:For linear model regression model with restricted coefficients you have 3 options: Linear with nls, Bayes with brms and Lasso. Here we will look at Linear Model with nls
-The function lm does not provide a way to restrict coefficients. Instead we can use the function nls under the algorithm port.</description>
-    </item>
-    
-  </channel>
-</rss>
