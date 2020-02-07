@@ -131,8 +131,6 @@
 
 <a href="/resources">Resources</a>
 
-<a href="/tags" title="Show list of tags">Tags</a>
-
 
 </nav>
 
@@ -205,7 +203,6 @@
 <a class="label" href="/tags/constrained">constrained</a>
 
 
-
 </div>
 
 </header>
@@ -269,15 +266,15 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 <tbody>
 <tr class="odd">
 <td>(Intercept)</td>
-<td align="right">2.6186491</td>
+<td align="right">2.5559270</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.5028022</td>
+<td align="right">0.5185408</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4490288</td>
+<td align="right">0.4529149</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
@@ -410,7 +407,7 @@ ggplot(Z,aes(x = seq(1:length(Yy)),y = Yy)) +
 plot(cv_las1,main = &quot;Restricted Positive Coefficients&quot;)
 plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
 <p><img src="/2019-08-17-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Cross_Val-1.png" width="672" /></p>
-<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.117 while the unrestricted model has an error of 0.097, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
+<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.115 while the unrestricted model has an error of 0.1, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
 </div>
 
 </div>
