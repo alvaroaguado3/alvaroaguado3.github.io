@@ -12,19 +12,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="description" content="description" />
+<meta name="description" content="" />
 
 <meta name="keywords" content="bayes, brms, R, bayesian, regression, ">
 
 
 <meta property="og:title" content="Forcing Regression Coefficients in R - Part III Bayesian  &middot; rTales: DataScience in Short ">
 <meta property="og:site_name" content="rTales: DataScience in Short"/>
-<meta property="og:url" content="/2019/08/18/forcing-regression-coefficients-in-r-part-iii-bayesian/" />
+<meta property="og:url" content="/forcing-regression-coefficients-in-r-part-iii-bayesian/" />
 <meta property="og:locale" content="en-EN">
 
 
 <meta property="og:type" content="article" />
-<meta property="og:description" content="description"/>
+<meta property="og:description" content=""/>
 <meta property="og:article:published_time" content="2019-08-18T00:00:00Z" />
 <meta property="og:article:modified_time" content="2019-08-18T00:00:00Z" />
 
@@ -47,8 +47,8 @@
 <meta name="twitter:site" content="@https://twitter.com/neuronalnet" />
 <meta name="twitter:creator" content="@https://twitter.com/neuronalnet" />
 <meta name="twitter:title" content="Forcing Regression Coefficients in R - Part III Bayesian" />
-<meta name="twitter:description" content="description" />
-<meta name="twitter:url" content="/2019/08/18/forcing-regression-coefficients-in-r-part-iii-bayesian/" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="/forcing-regression-coefficients-in-r-part-iii-bayesian/" />
 <meta name="twitter:domain" content="/">
   
 
@@ -62,14 +62,14 @@
       "name": "Alvaro Aguado"
     },
     "datePublished": "2019-08-18",
-    "description": "description",
-    "wordCount":  1083 
+    "description": "",
+    "wordCount":  1055 
   }
 </script>
 
 
 
-<link rel="canonical" href="/2019/08/18/forcing-regression-coefficients-in-r-part-iii-bayesian/" />
+<link rel="canonical" href="/forcing-regression-coefficients-in-r-part-iii-bayesian/" />
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
 <link href="/favicon.png" rel="icon" type="image/x-icon" />
@@ -200,8 +200,8 @@
   
     &middot; by Alvaro Aguado
   
-  &middot; Read in about 6 min
-  &middot; (1083 Words)
+  &middot; Read in about 5 min
+  &middot; (1055 Words)
   <br>
   
 <a class="label" href="/tags/regression">regression</a>
@@ -221,11 +221,11 @@
 
 
 <div id="question" class="section level3">
-<h3>Question:</h3>
+<h3><strong>Question</strong>:</h3>
 <p>I’m working on a regression model and I need to force the regression coefficients to be positive. How can I accomplish this in R?</p>
 </div>
 <div id="solution" class="section level3">
-<h3>Solution:</h3>
+<h3><strong>Solution</strong>:</h3>
 <p>For linear model regression model with restricted coefficients you have 3 options: Linear with nls, Bayes with brms and Lasso. Here we will look at <code>Linear Model with bayes regresison with the brms package</code></p>
 <p>In this case bayes provides a convenient way to restrict coefficients regularizing the coefficients. Here’s how to accomplish the question using R</p>
 <pre class="r"><code>if (!require(brms)) install.packages(&quot;brms&quot;)
@@ -271,15 +271,12 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.06 seconds (Warm-up)
-## Chain 1:                0.056 seconds (Sampling)
-## Chain 1:                0.116 seconds (Total)
+## Chain 1:  Elapsed Time: 0.055 seconds (Warm-up)
+## Chain 1:                0.06 seconds (Sampling)
+## Chain 1:                0.115 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 2).
-## Chain 2: Rejecting initial value:
-## Chain 2:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 2:   Stan can&#39;t start sampling from this initial value.
 ## Chain 2: 
 ## Chain 2: Gradient evaluation took 0 seconds
 ## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
@@ -300,8 +297,8 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 2: 
 ## Chain 2:  Elapsed Time: 0.069 seconds (Warm-up)
-## Chain 2:                0.051 seconds (Sampling)
-## Chain 2:                0.12 seconds (Total)
+## Chain 2:                0.058 seconds (Sampling)
+## Chain 2:                0.127 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 3).
@@ -324,9 +321,9 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.081 seconds (Warm-up)
-## Chain 3:                0.061 seconds (Sampling)
-## Chain 3:                0.142 seconds (Total)
+## Chain 3:  Elapsed Time: 0.065 seconds (Warm-up)
+## Chain 3:                0.052 seconds (Sampling)
+## Chain 3:                0.117 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 4).
@@ -352,9 +349,9 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.058 seconds (Warm-up)
-## Chain 4:                0.045 seconds (Sampling)
-## Chain 4:                0.103 seconds (Total)
+## Chain 4:  Elapsed Time: 0.06 seconds (Warm-up)
+## Chain 4:                0.058 seconds (Sampling)
+## Chain 4:                0.118 seconds (Total)
 ## Chain 4:</code></pre>
 <pre class="r"><code># Extract Coefficients, now all coefficients are positive (except Intercept)
 fixef(fit2)[,1:2] -&gt; fits
@@ -373,29 +370,29 @@ knitr::kable(fits, caption = &quot;Forced Positive Coefficients&quot;)</code></p
 <tbody>
 <tr class="odd">
 <td>Intercept</td>
-<td align="right">2.2644562</td>
-<td align="right">0.2503794</td>
+<td align="right">2.2740435</td>
+<td align="right">0.2479398</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.5943697</td>
-<td align="right">0.0702746</td>
+<td align="right">0.5913944</td>
+<td align="right">0.0691302</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4589956</td>
-<td align="right">0.0211375</td>
+<td align="right">0.4593201</td>
+<td align="right">0.0205725</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
-<td align="right">0.0300928</td>
-<td align="right">0.0285726</td>
+<td align="right">0.0294104</td>
+<td align="right">0.0284465</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code># Plot Betas
   plot(fit2)</code></pre>
-<p><img src="/post/2019-08-14-forcing-regression-coefficients-in-r-part-ii-bayesian_files/figure-html/Linear_model-1.png" width="672" /></p>
+<p><img src="/2019-08-14-forcing-regression-coefficients-in-r-part-ii-bayesian_files/figure-html/Linear_model-1.png" width="672" /></p>
 </div>
 
 </div>
@@ -408,13 +405,13 @@ knitr::kable(fits, caption = &quot;Forced Positive Coefficients&quot;)</code></p
   
 
     
-    <a class="prev" href="/2019/08/17/forcing-regression-coefficients-in-r-part-ii-lasso/" title="Forcing Regression Coefficients in R - Part II Lasso">
+    <a class="prev" href="/forcing-regression-coefficients-in-r-part-ii-lasso/" title="Forcing Regression Coefficients in R - Part II Lasso">
       Previous
     </a>
     
 
     
-    <a class="next" href="/2020/02/07/least-squares-regression-from-scratch/" title="Least Squares Regression from Scratch">
+    <a class="next" href="/least-squares-regression-from-scratch/" title="Least Squares Regression from Scratch">
       Next
     </a>
     

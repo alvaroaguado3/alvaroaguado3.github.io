@@ -4,28 +4,27 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
+    <lastmod>2020-02-07T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2019-08-18T00:00:00+00:00</lastmod>
-    <priority>0</priority>
+    <loc>/least-squares-regression-from-scratch/</loc>
+    <lastmod>2020-02-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2019/08/18/forcing-regression-coefficients-in-r-part-iii-bayesian/</loc>
+    <loc>/forcing-regression-coefficients-in-r-part-iii-bayesian/</loc>
     <lastmod>2019-08-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2019/08/17/forcing-regression-coefficients-in-r-part-ii-lasso/</loc>
+    <loc>/forcing-regression-coefficients-in-r-part-ii-lasso/</loc>
     <lastmod>2019-08-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2019/08/06/restricted-coefficients-linear-regression-part-i/</loc>
+    <loc>/restricted-coefficients-linear-regression-part-i/</loc>
     <lastmod>2019-08-06T00:00:00+00:00</lastmod>
   </url>
   
