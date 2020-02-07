@@ -14,7 +14,7 @@
 
 <meta name="description" content="" />
 
-<meta name="keywords" content="key, words, ">
+<meta name="keywords" content="constrained, regression, coefficients, force, ">
 
 
 <meta property="og:title" content="Forcing Regression Coefficients in R - Part II Lasso  &middot; rTales: DataScience in Short ">
@@ -30,9 +30,13 @@
 
   
     
-<meta property="og:article:tag" content="key">
+<meta property="og:article:tag" content="constrained">
     
-<meta property="og:article:tag" content="words">
+<meta property="og:article:tag" content="regression">
+    
+<meta property="og:article:tag" content="coefficients">
+    
+<meta property="og:article:tag" content="force">
     
   
 
@@ -198,8 +202,6 @@
   &middot; (1074 Words)
   <br>
   
-<a class="label" href="/tags/r">R</a>
-
 <a class="label" href="/tags/regression">Regression</a>
 
 <a class="label" href="/tags/marketing-mix">Marketing Mix</a>
@@ -270,15 +272,15 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 <tbody>
 <tr class="odd">
 <td>(Intercept)</td>
-<td align="right">2.1824449</td>
+<td align="right">2.5038542</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.6138740</td>
+<td align="right">0.5316072</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4706171</td>
+<td align="right">0.4561412</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
@@ -286,7 +288,7 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 </tr>
 <tr class="odd">
 <td>Speciesversicolor</td>
-<td align="right">0.0464752</td>
+<td align="right">0.0000000</td>
 </tr>
 <tr class="even">
 <td>Speciesvirginica</td>
@@ -411,7 +413,7 @@ ggplot(Z,aes(x = seq(1:length(Yy)),y = Yy)) +
 plot(cv_las1,main = &quot;Restricted Positive Coefficients&quot;)
 plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
 <p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Cross_Val-1.png" width="672" /></p>
-<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.115 while the unrestricted model has an error of 0.097, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
+<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.113 while the unrestricted model has an error of 0.098, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
 </div>
 
 </div>
@@ -421,6 +423,20 @@ plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
   <div class="container navigation no-print">
   <h2>Navigation</h2>
   
+  
+
+    
+    <a class="prev" href="/2020/02/07/forcing-regression-coefficients-in-r-part-iii-bayesian/" title="Forcing Regression Coefficients in R - Part III Bayesian">
+      Previous
+    </a>
+    
+
+    
+    <a class="next" href="/2020/02/07/forcing-regression-coefficients-in-r-part-i/" title="Forcing Regression Coefficients in R - Part I">
+      Next
+    </a>
+    
+
   
 
 

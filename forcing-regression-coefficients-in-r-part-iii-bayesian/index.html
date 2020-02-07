@@ -268,9 +268,9 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.045 seconds (Warm-up)
-## Chain 1:                0.061 seconds (Sampling)
-## Chain 1:                0.106 seconds (Total)
+## Chain 1:  Elapsed Time: 0.089 seconds (Warm-up)
+## Chain 1:                0.055 seconds (Sampling)
+## Chain 1:                0.144 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 2).
@@ -296,18 +296,12 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.072 seconds (Warm-up)
-## Chain 2:                0.052 seconds (Sampling)
-## Chain 2:                0.124 seconds (Total)
+## Chain 2:  Elapsed Time: 0.061 seconds (Warm-up)
+## Chain 2:                0.046 seconds (Sampling)
+## Chain 2:                0.107 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 3).
-## Chain 3: Rejecting initial value:
-## Chain 3:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 3:   Stan can&#39;t start sampling from this initial value.
-## Chain 3: Rejecting initial value:
-## Chain 3:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 3:   Stan can&#39;t start sampling from this initial value.
 ## Chain 3: 
 ## Chain 3: Gradient evaluation took 0 seconds
 ## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
@@ -327,12 +321,18 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.054 seconds (Warm-up)
-## Chain 3:                0.059 seconds (Sampling)
-## Chain 3:                0.113 seconds (Total)
+## Chain 3:  Elapsed Time: 0.06 seconds (Warm-up)
+## Chain 3:                0.054 seconds (Sampling)
+## Chain 3:                0.114 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 4).
+## Chain 4: Rejecting initial value:
+## Chain 4:   Log probability evaluates to log(0), i.e. negative infinity.
+## Chain 4:   Stan can&#39;t start sampling from this initial value.
+## Chain 4: Rejecting initial value:
+## Chain 4:   Log probability evaluates to log(0), i.e. negative infinity.
+## Chain 4:   Stan can&#39;t start sampling from this initial value.
 ## Chain 4: Rejecting initial value:
 ## Chain 4:   Log probability evaluates to log(0), i.e. negative infinity.
 ## Chain 4:   Stan can&#39;t start sampling from this initial value.
@@ -355,9 +355,9 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.047 seconds (Warm-up)
-## Chain 4:                0.054 seconds (Sampling)
-## Chain 4:                0.101 seconds (Total)
+## Chain 4:  Elapsed Time: 0.054 seconds (Warm-up)
+## Chain 4:                0.044 seconds (Sampling)
+## Chain 4:                0.098 seconds (Total)
 ## Chain 4:</code></pre>
 <pre class="r"><code># Extract Coefficients, now all coefficients are positive (except Intercept)
 fixef(fit2)[,1:2] -&gt; fits
@@ -376,29 +376,29 @@ knitr::kable(fits, caption = &quot;Forced Positive Coefficients&quot;)</code></p
 <tbody>
 <tr class="odd">
 <td>Intercept</td>
-<td align="right">2.2712959</td>
-<td align="right">0.2527760</td>
+<td align="right">2.2725140</td>
+<td align="right">0.2592316</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.5923734</td>
-<td align="right">0.0705571</td>
+<td align="right">0.5913650</td>
+<td align="right">0.0717306</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4590117</td>
-<td align="right">0.0207967</td>
+<td align="right">0.4591361</td>
+<td align="right">0.0230698</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
-<td align="right">0.0302147</td>
-<td align="right">0.0285068</td>
+<td align="right">0.0307185</td>
+<td align="right">0.0310286</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code># Plot Betas
   plot(fit2)</code></pre>
-<p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-iii-bayesian_files/figure-html/Linear_model-1.png" width="672" /></p>
+<p><img src="/2020-02-07-forcing-regression-coefficients-in-r-part-iii-bayesian_files/figure-html/Linear_model-1.png" width="672" /></p>
 </div>
 
 </div>

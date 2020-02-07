@@ -15,6 +15,28 @@
     
     
     <item>
+      <title>Forcing Regression Coefficients in R - Part I</title>
+      <link>/2020/02/07/forcing-regression-coefficients-in-r-part-i/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/2020/02/07/forcing-regression-coefficients-in-r-part-i/</guid>
+      <description>Question:I’m working on a regression model and I need to force the regression coefficients to be positive. How can I accomplish this in R?
+Solution:For linear model regression model with restricted coefficients you have 3 options: Linear with nls, Bayes with brms and Lasso. Here we will look at Linear Model with nls
+The function lm does not provide a way to restrict coefficients. Instead we can use the function nls under the algorithm port.</description>
+    </item>
+    
+    <item>
+      <title>Forcing Regression Coefficients in R - Part II Lasso</title>
+      <link>/2020/02/07/forcing-regression-coefficients-in-r-part-ii-lasso/</link>
+      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/2020/02/07/forcing-regression-coefficients-in-r-part-ii-lasso/</guid>
+      <description>Question:I’m working on a regression model and I need to force the regression coefficients to be positive. How can I accomplish this in R?
+Solution:For linear model regression model with restricted coefficients you have 3 options: Linear with nls, Bayes with brms and Lasso. Here we will look at Linear Model with Lasso using glmnet
+In this case glmnet provides a convenient way to restrict coefficients regularizing the coefficients.</description>
+    </item>
+    
+    <item>
       <title>Forcing Regression Coefficients in R - Part III Bayesian</title>
       <link>/2020/02/07/forcing-regression-coefficients-in-r-part-iii-bayesian/</link>
       <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
