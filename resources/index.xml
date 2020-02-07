@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Resources on rTales: DataScience in Short</title>
+    <link>/resources/</link>
+    <description>Recent content in Resources on rTales: DataScience in Short</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-EN</language>
+    <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
+    <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
+    <copyright>(c) 2019 Alvaro Aguado</copyright>
+    
+	<atom:link href="/resources/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Here I will keep some resources like dynamic turorials done in R or Python</title>
+      <link>/resources/resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/resources/resources/</guid>
+      <description>Question: How do I calculate Type I, Type II and Power in a statistical hypothesis testing?Type I &amp;amp; Type II Error and Power</description>
+    </item>
+    
+  </channel>
+</rss>

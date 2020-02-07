@@ -63,7 +63,7 @@
     },
     "datePublished": "2019-08-18",
     "description": "description",
-    "wordCount":  1195 
+    "wordCount":  1027 
   }
 </script>
 
@@ -127,13 +127,15 @@
   <nav class="container nav primary no-print">
   
 
-<a class="homelink" href="/">Home</a>
+<a class="homelink" href="/">home</a>
 
 
   
 <a href="/about">About</a>
 
 <a href="/post" title="Show list of posts">Posts</a>
+
+<a href="/resources">Resources</a>
 
 <a href="/tags" title="Show list of tags">Tags</a>
 
@@ -198,8 +200,8 @@
   
     &middot; by Alvaro Aguado
   
-  &middot; Read in about 6 min
-  &middot; (1195 Words)
+  &middot; Read in about 5 min
+  &middot; (1027 Words)
   <br>
   
 <a class="label" href="/tags/regression">regression</a>
@@ -250,15 +252,6 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
             prior = prior)</code></pre>
 <pre><code>## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 1).
-## Chain 1: Rejecting initial value:
-## Chain 1:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 1:   Stan can&#39;t start sampling from this initial value.
-## Chain 1: Rejecting initial value:
-## Chain 1:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 1:   Stan can&#39;t start sampling from this initial value.
-## Chain 1: Rejecting initial value:
-## Chain 1:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 1:   Stan can&#39;t start sampling from this initial value.
 ## Chain 1: 
 ## Chain 1: Gradient evaluation took 0 seconds
 ## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
@@ -278,18 +271,12 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.084 seconds (Warm-up)
-## Chain 1:                0.049 seconds (Sampling)
-## Chain 1:                0.133 seconds (Total)
+## Chain 1:  Elapsed Time: 0.075 seconds (Warm-up)
+## Chain 1:                0.052 seconds (Sampling)
+## Chain 1:                0.127 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 2).
-## Chain 2: Rejecting initial value:
-## Chain 2:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 2:   Stan can&#39;t start sampling from this initial value.
-## Chain 2: Rejecting initial value:
-## Chain 2:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 2:   Stan can&#39;t start sampling from this initial value.
 ## Chain 2: 
 ## Chain 2: Gradient evaluation took 0 seconds
 ## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
@@ -309,9 +296,9 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.065 seconds (Warm-up)
-## Chain 2:                0.051 seconds (Sampling)
-## Chain 2:                0.116 seconds (Total)
+## Chain 2:  Elapsed Time: 0.061 seconds (Warm-up)
+## Chain 2:                0.041 seconds (Sampling)
+## Chain 2:                0.102 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 3).
@@ -334,15 +321,12 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.073 seconds (Warm-up)
-## Chain 3:                0.046 seconds (Sampling)
-## Chain 3:                0.119 seconds (Total)
+## Chain 3:  Elapsed Time: 0.093 seconds (Warm-up)
+## Chain 3:                0.083 seconds (Sampling)
+## Chain 3:                0.176 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL &#39;7eae0a011a2d1821e7ae3dccca1f5f9b&#39; NOW (CHAIN 4).
-## Chain 4: Rejecting initial value:
-## Chain 4:   Log probability evaluates to log(0), i.e. negative infinity.
-## Chain 4:   Stan can&#39;t start sampling from this initial value.
 ## Chain 4: 
 ## Chain 4: Gradient evaluation took 0 seconds
 ## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0 seconds.
@@ -362,9 +346,9 @@ fit2 &lt;- brm(formula =  Sepal.Length ~ Sepal.Width +  Petal.Length + Petal.Wid
 ## Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.065 seconds (Warm-up)
-## Chain 4:                0.057 seconds (Sampling)
-## Chain 4:                0.122 seconds (Total)
+## Chain 4:  Elapsed Time: 0.084 seconds (Warm-up)
+## Chain 4:                0.07 seconds (Sampling)
+## Chain 4:                0.154 seconds (Total)
 ## Chain 4:</code></pre>
 <pre class="r"><code># Extract Coefficients, now all coefficients are positive (except Intercept)
 fixef(fit2)[,1:2] -&gt; fits
@@ -383,23 +367,23 @@ knitr::kable(fits, caption = &quot;Forced Positive Coefficients&quot;)</code></p
 <tbody>
 <tr class="odd">
 <td>Intercept</td>
-<td align="right">2.2733968</td>
-<td align="right">0.2583439</td>
+<td align="right">2.2657845</td>
+<td align="right">0.2471228</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.5915700</td>
-<td align="right">0.0719236</td>
+<td align="right">0.5936596</td>
+<td align="right">0.0697738</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4590159</td>
-<td align="right">0.0214781</td>
+<td align="right">0.4592166</td>
+<td align="right">0.0210561</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
-<td align="right">0.0302447</td>
-<td align="right">0.0286565</td>
+<td align="right">0.0307063</td>
+<td align="right">0.0296411</td>
 </tr>
 </tbody>
 </table>
@@ -458,7 +442,7 @@ knitr::kable(fits, caption = &quot;Forced Positive Coefficients&quot;)</code></p
   
 <div class="container copyright">
   
-  (c) 2019 Alvaro Aguado
+  (c) 2020 Alvaro Aguado
 
 
 </div>
