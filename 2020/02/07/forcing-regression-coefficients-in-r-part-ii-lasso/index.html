@@ -14,12 +14,12 @@
 
 <meta name="description" content="" />
 
-<meta name="keywords" content="constrained, regression, coefficients, force, ">
+<meta name="keywords" content="key, words, ">
 
 
 <meta property="og:title" content="Forcing Regression Coefficients in R - Part II Lasso  &middot; rTales: DataScience in Short ">
 <meta property="og:site_name" content="rTales: DataScience in Short"/>
-<meta property="og:url" content="/forcing-regression-coefficients-in-r-part-ii-lasso/" />
+<meta property="og:url" content="/2020/02/07/forcing-regression-coefficients-in-r-part-ii-lasso/" />
 <meta property="og:locale" content="en-EN">
 
 
@@ -30,13 +30,9 @@
 
   
     
-<meta property="og:article:tag" content="constrained">
+<meta property="og:article:tag" content="key">
     
-<meta property="og:article:tag" content="regression">
-    
-<meta property="og:article:tag" content="coefficients">
-    
-<meta property="og:article:tag" content="force">
+<meta property="og:article:tag" content="words">
     
   
 
@@ -46,7 +42,7 @@
 <meta name="twitter:creator" content="@@neuronalnet" />
 <meta name="twitter:title" content="Forcing Regression Coefficients in R - Part II Lasso" />
 <meta name="twitter:description" content="" />
-<meta name="twitter:url" content="/forcing-regression-coefficients-in-r-part-ii-lasso/" />
+<meta name="twitter:url" content="/2020/02/07/forcing-regression-coefficients-in-r-part-ii-lasso/" />
 <meta name="twitter:domain" content="/">
   
 
@@ -67,7 +63,7 @@
 
 
 
-<link rel="canonical" href="/forcing-regression-coefficients-in-r-part-ii-lasso/" />
+<link rel="canonical" href="/2020/02/07/forcing-regression-coefficients-in-r-part-ii-lasso/" />
 
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
 <link href="/favicon.png" rel="icon" type="image/x-icon" />
@@ -202,6 +198,8 @@
   &middot; (1074 Words)
   <br>
   
+<a class="label" href="/tags/r">R</a>
+
 <a class="label" href="/tags/regression">Regression</a>
 
 <a class="label" href="/tags/marketing-mix">Marketing Mix</a>
@@ -272,15 +270,15 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 <tbody>
 <tr class="odd">
 <td>(Intercept)</td>
-<td align="right">2.2744168</td>
+<td align="right">2.1824449</td>
 </tr>
 <tr class="even">
 <td>Sepal.Width</td>
-<td align="right">0.5902553</td>
+<td align="right">0.6138740</td>
 </tr>
 <tr class="odd">
 <td>Petal.Length</td>
-<td align="right">0.4667378</td>
+<td align="right">0.4706171</td>
 </tr>
 <tr class="even">
 <td>Petal.Width</td>
@@ -288,7 +286,7 @@ knitr::kable(c.fit1, caption = &quot;Forced Positive Coefficients&quot;)</code><
 </tr>
 <tr class="odd">
 <td>Speciesversicolor</td>
-<td align="right">0.0309260</td>
+<td align="right">0.0464752</td>
 </tr>
 <tr class="even">
 <td>Speciesvirginica</td>
@@ -316,7 +314,7 @@ glmnet(x = X,y = y,
 plot_glmnet(las2,xvar = &quot;lambda&quot;)
   title(sub = &quot;Positive Coefficients Only&quot;)
 abline(v = log(lambda))</code></pre>
-<p><img src="/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Q3-1.png" width="672" /></p>
+<p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Q3-1.png" width="672" /></p>
 <p>It’s very interesting to compare this to what would happen if we did not have any restriction in the coefs.</p>
 <p>Let’s see them side by side</p>
 <pre class="r"><code>if (!require(plotmo)) install.packages(&quot;plotmo&quot;)
@@ -335,7 +333,7 @@ abline(v = log(lambda))
 plot_glmnet(las3,xvar = &quot;lambda&quot;)
   title(sub = &quot;Positive and Negative Coefficients allowed&quot;)
 abline(v = log(lambda2))</code></pre>
-<p><img src="/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Q4-1.png" width="768" /></p>
+<p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Q4-1.png" width="768" /></p>
 <p>We see how Petal Width will not take positive coefficients even if we coerce the positive side of the values. This is because when we include Petal Length, the high correlation between the two variables makes it choose one for the upward relationship and the remaining one for the downward variance</p>
 <pre class="r"><code># Save variables into y,x1,x2 to simplify formulas
 iris$Sepal.Length -&gt; y 
@@ -376,7 +374,7 @@ text(x=-1,y=0.4,labels =paste0(&quot;r = &quot;,round(cor(r1,r4),2)))
 plot(r2,r3,pch = 20,col=&#39;grey&#39;,main = &#39;Resid.Petal.Length ~ Resid.Petal.Width&#39;)
 abline(lm(r3~r2),col = &#39;red&#39;)
 text(x=-1,y=1,labels =paste0(&quot;r = &quot;,round(cor(r2,r3),2)))</code></pre>
-<p><img src="/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Partial%20Plot-1.png" width="672" /></p>
+<p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Partial%20Plot-1.png" width="672" /></p>
 <p>Now the last thing to test is to find out how good is the fit of this model compared to regular lm and unrestricted lasso model.</p>
 <pre class="r"><code>require(ggplot)
 require(cowplot) 
@@ -406,14 +404,14 @@ ggplot(Z,aes(x = seq(1:length(Yy)),y = Yy)) +
         legend.text = element_text(size = 8),
         legend.title = element_text(size = 10),
         plot.title = element_text(size = 12, face = &quot;bold&quot;)) </code></pre>
-<p><img src="/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/test_Model-1.png" width="672" /></p>
+<p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/test_Model-1.png" width="672" /></p>
 <p>We see the model is somewhat erratic, but on average it fits the data well, except for the extreme cases of the dependent variable. But the main concept we should keep in mind is that both models perform similarly at fitting the data points.</p>
 <p>We would have to now assess if the model is good when predicting Cross Validated data which the model in lasso allows to look.</p>
 <pre class="r"><code>par(mfrow=c(1,2))
 plot(cv_las1,main = &quot;Restricted Positive Coefficients&quot;)
 plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
-<p><img src="/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Cross_Val-1.png" width="672" /></p>
-<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.114 while the unrestricted model has an error of 0.098, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
+<p><img src="/post/2020-02-07-forcing-regression-coefficients-in-r-part-ii-lasso_files/figure-html/Cross_Val-1.png" width="672" /></p>
+<p>And as we see the restricted model has a Mean-squared error out-of sample of 0.115 while the unrestricted model has an error of 0.097, which is not a big difference and even we could say is more parsimonious in terms of number of variables.</p>
 </div>
 
 </div>
@@ -423,20 +421,6 @@ plot(cv_las3, main = &quot;Unrestricted Coefficients&quot;)</code></pre>
   <div class="container navigation no-print">
   <h2>Navigation</h2>
   
-  
-
-    
-    <a class="prev" href="/forcing-regression-coefficients-in-r-part-iii-bayesian/" title="Forcing Regression Coefficients in R - Part III Bayesian">
-      Previous
-    </a>
-    
-
-    
-    <a class="next" href="/forcing-regression-coefficients-in-r-part-i/" title="Forcing Regression Coefficients in R - Part I">
-      Next
-    </a>
-    
-
   
 
 
