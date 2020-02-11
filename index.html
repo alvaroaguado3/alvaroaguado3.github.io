@@ -46,7 +46,16 @@
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/highlight/default.css">
 
-  
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<script async type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
   
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -153,11 +162,42 @@
     <h1>
 </h1>
 
-    <span>last update: <time datetime="2020-02-07T00:00:00Z">7 February at 12:00am</time>
+    <span>last update: <time datetime="2020-02-09T00:00:00Z">9 February at 12:00am</time>
 </span>
 
   </header>
   
+  
+    <article class="container content summary">
+  <div class="container hat">
+  <h2><a href="/regression-from-scratch-and-simple/">Tutorial:Regression from Scratch and Simple
+</a>
+</h2>
+
+  <time datetime="2020-02-09">9 Feb, 2020</time>
+
+</div>
+
+  <p class="container content">
+  
+  
+    Question:I’m not a math expert. But I want to understand least squares completely. Can you please explain how to do Least Squares Regression from Scratch?
+Solution:Let’s see the hard math solution first and then we will walk through to make sure we understand this fully. Revisit this once you are done to see if you get it the second time.
+Imagine we have the output variable \(y = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\) and the input variables \(X = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\) where the first column represents the intercept and the second column is the second variable.
+  
+
+
+</p>
+
+
+  <div class="container readlink">
+  <a href="/regression-from-scratch-and-simple/">Read more &rarr;</a>
+
+</div>
+
+
+</article>
+
   
     <article class="container content summary">
   <div class="container hat">

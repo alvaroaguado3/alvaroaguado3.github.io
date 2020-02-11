@@ -9,10 +9,21 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Fri, 07 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tutorial:Regression from Scratch and Simple</title>
+      <link>/regression-from-scratch-and-simple/</link>
+      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/regression-from-scratch-and-simple/</guid>
+      <description>Question:I’m not a math expert. But I want to understand least squares completely. Can you please explain how to do Least Squares Regression from Scratch?
+Solution:Let’s see the hard math solution first and then we will walk through to make sure we understand this fully. Revisit this once you are done to see if you get it the second time.
+Imagine we have the output variable \(y = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\) and the input variables \(X = \begin{pmatrix} 1 &amp;amp; 1 \\ 1 &amp;amp; 2 \end{pmatrix}\) where the first column represents the intercept and the second column is the second variable.</description>
+    </item>
     
     <item>
       <title>Forcing Regression Coefficients in R - Part I</title>
