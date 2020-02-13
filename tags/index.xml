@@ -9,17 +9,35 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Easy</title>
+      <link>/tags/easy/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/tags/easy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Least Squares</title>
       <link>/tags/least-squares/</link>
-      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
       <guid>/tags/least-squares/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>/tags/regression/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     
@@ -33,29 +51,11 @@
     </item>
     
     <item>
-      <title>Regression</title>
-      <link>/tags/regression/</link>
-      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
-      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
-      <guid>/tags/regression/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Very Easy</title>
       <link>/tags/very-easy/</link>
       <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
       <guid>/tags/very-easy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Easy</title>
-      <link>/tags/easy/</link>
-      <pubDate>Fri, 07 Feb 2020 00:00:00 +0000</pubDate>
-      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
-      <guid>/tags/easy/</guid>
       <description></description>
     </item>
     

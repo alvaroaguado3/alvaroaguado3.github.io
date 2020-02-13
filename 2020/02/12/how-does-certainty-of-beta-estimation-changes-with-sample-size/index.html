@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Tutorial:How does certainty of beta estimation changes with sample size?  &middot; rTales: DataScience in Short</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="" />
+
+<meta name="keywords" content="Easy, Regression, Least Squares, ">
+
+
+<meta property="og:title" content="Tutorial:How does certainty of beta estimation changes with sample size?  &middot; rTales: DataScience in Short ">
+<meta property="og:site_name" content="rTales: DataScience in Short"/>
+<meta property="og:url" content="/2020/02/12/how-does-certainty-of-beta-estimation-changes-with-sample-size/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content=""/>
+<meta property="og:article:published_time" content="2020-02-12T00:00:00Z" />
+<meta property="og:article:modified_time" content="2020-02-12T00:00:00Z" />
+
+  
+    
+<meta property="og:article:tag" content="Easy">
+    
+<meta property="og:article:tag" content="Regression">
+    
+<meta property="og:article:tag" content="Least Squares">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@@neuronalnet" />
+<meta name="twitter:creator" content="@@neuronalnet" />
+<meta name="twitter:title" content="Tutorial:How does certainty of beta estimation changes with sample size?" />
+<meta name="twitter:description" content="" />
+<meta name="twitter:url" content="/2020/02/12/how-does-certainty-of-beta-estimation-changes-with-sample-size/" />
+<meta name="twitter:domain" content="/">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Tutorial:How does certainty of beta estimation changes with sample size?",
+    "author": {
+      "@type": "Person",
+      "name": "Alvaro Aguado"
+    },
+    "datePublished": "2020-02-12",
+    "description": "",
+    "wordCount":  2398 
+  }
+</script>
+
+
+
+<link rel="canonical" href="/2020/02/12/how-does-certainty-of-beta-estimation-changes-with-sample-size/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+<link href="/favicon.png" rel="icon" type="image/x-icon" />
+
+<meta name="generator" content="Hugo 0.64.0" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<script async type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-145400836-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <img src="/rTales-logo.png">
+  <a class="baselink" href="/">
+  
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Solve practical problems with Data Science and Technology
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="/">Home</a>
+
+
+  
+<a href="/about">About</a>
+
+<a href="/post" title="Show list of posts">Posts</a>
+
+<a href="/resources">Resources</a>
+
+<a href="/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" rel="me" aria-label="Email" href="mailto:alvaroaguado3@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" rel="me" aria-label="Github" href="https://github.com/alvaroaguado3">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+<a id="contact-link-linkedin" class="contact_link" rel="me" aria-label="LinkedIn" href="https://www.linkedin.com/in/alvaro-aguado-74314120/">
+  <span class="fa fa-linkedin-square"></span></a>
+
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" rel="me" aria-label="Twitter" href="https://twitter.com/@neuronalnet">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Tutorial:How does certainty of beta estimation changes with sample size?
+</h1>
+
+  <div class="metas">
+<time datetime="2020-02-12">12 Feb, 2020</time>
+
+
+  
+    &middot; by Alvaro Aguado
+  
+  &middot; Read in about 12 min
+  &middot; (2398 Words)
+  <br>
+  
+<a class="label" href="/tags/easy">Easy</a>
+
+<a class="label" href="/tags/regression">Regression</a>
+
+<a class="label" href="/tags/least-squares">Least Squares</a>
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+
+<div id="linear-regression" class="section level2">
+<h2>Linear Regression</h2>
+<p>We first simulate data to see how to see how to calculate beta (slope) and alpha (constant) coefficients. We use a sampling method from a multivariate normal distribution with mean [0,0] and some covariance between independent variable x and target variable y.</p>
+<pre class="python"><code># Import Libraries 
+import numpy as np
+import matplotlib.pyplot as plt
+
+m = range(0,10000) # Datasets
+n = 100 # number of points
+sigx = .3 # Standard deviation x
+sigy = .9 # Standard deviation y
+rho = .1 # Pearson rho correlation used to show level of linear dependence
+
+# generate data 
+mu = np.array([0.,0.]) 
+cov = np.array([[sigx*sigx,rho*sigx*sigy],[rho*sigx*sigy,sigy*sigy]]) 
+
+data = np.random.multivariate_normal(mu,cov,n) # Sample data 
+
+x = data[:,0]
+y = data[:,1]
+
+# fit the model 
+covmat = np.cov(x,y) # covariance matrix
+# cov of x,y is also estimated as rho(x,y)*sigma(x)*sigma(y)
+
+# best fit parameters 
+betahat = covmat[0,1]/covmat[0,0] # covariance x,y divided by variance x
+alphahat = np.mean(y) - betahat*np.mean(x) 
+
+# plot best fit model 
+xvals = np.linspace(-1,1,150)
+yvals = betahat*xvals + alphahat  
+
+# Plot distribution density map
+plt.figure()
+plt.hist2d(x,y)</code></pre>
+<pre><code>## (array([[0., 0., 0., 0., 1., 1., 0., 1., 0., 0.],
+##        [0., 0., 1., 0., 0., 0., 0., 0., 0., 0.],
+##        [0., 0., 1., 1., 0., 2., 1., 0., 0., 0.],
+##        [2., 1., 3., 2., 3., 1., 2., 1., 1., 0.],
+##        [2., 5., 1., 3., 2., 3., 2., 0., 0., 1.],
+##        [4., 2., 2., 5., 4., 0., 1., 1., 0., 0.],
+##        [0., 2., 3., 2., 5., 3., 3., 0., 0., 0.],
+##        [2., 1., 4., 2., 0., 2., 1., 1., 1., 0.],
+##        [0., 0., 0., 1., 1., 1., 1., 0., 0., 0.],
+##        [0., 0., 1., 0., 0., 0., 0., 0., 0., 0.]]), array([-0.92966828, -0.75580958, -0.58195089, -0.40809219, -0.2342335 ,
+##        -0.0603748 ,  0.11348389,  0.28734259,  0.46120128,  0.63505998,
+##         0.80891868]), array([-1.76668893, -1.33838982, -0.91009072, -0.48179161, -0.05349251,
+##         0.3748066 ,  0.8031057 ,  1.23140481,  1.65970391,  2.08800301,
+##         2.51630212]), &lt;matplotlib.collections.QuadMesh object at 0x000000002E40A6A0&gt;)</code></pre>
+<pre class="python"><code>plt.show()
+
+# Plot data points + Regression</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="python"><code>plt.figure()
+plt.plot(x,y,&#39;bx&#39;)
+plt.plot(xvals,yvals,&#39;r-&#39;)
+plt.show()
+</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<div id="problem-1" class="section level3">
+<h3>Problem 1:</h3>
+<p>Plot histogram of these values and comment on its shape.
+How does this histogram change as you change n and rho? Interpret the results</p>
+<p>Let’s first define a function that takes the innitial inputs and calculates beta several (m) times. We then store this list of betas to analyze the effect of changing n and rho.</p>
+<pre class="python"><code>def betas(sigx,sigy,rho,n,m):
+  &quot;&quot;&quot;function to calculate beta m times by sampling from normal distribution. 
+  Function takes boolean inputs, returns list&quot;&quot;&quot;
+  betas = [] # Store results
+  mu = np.array([0.,0.])
+  cov = np.array([[ sigx*sigx , rho*sigx*sigy ],[ rho*sigx*sigy , sigy*sigy]])
+  for i in m:
+    # LOOP over
+    # Sample the data with mu and covariance matrix
+    data = np.random.multivariate_normal(mu,cov,n)
+    x = data[:,0]
+    y = data[:,1]
+    # fit the model
+    covmat = np.cov(x,y) # covariance matrix of x and y
+    betahat = covmat[0,1]/covmat[0,0] # Covmat[0,1] is the first row of the matrix covmat, 2nd column. And its the covariance of x,y, covmat[0,0] is the quasivariance of x
+    alphahat = np.mean(y) - betahat*np.mean(x) #alphahat is the mean value of y - meanvalue of x times the slope. 
+    # When x,y relationship is 1 to 1 then constant is the distance between average y and average x (scaling both axis to common origin, the constant)
+    # Save beta in vector
+    betas.append(betahat)
+    # plot best fit model
+    xvals = np.linspace(-1,1,150) # line of points where to calculate values
+    yvals = betahat*xvals + alphahat
+    
+  return(betas)</code></pre>
+<p>Now that we have the function let’s visualize what happens when we use large n vs small n sample size.</p>
+<pre class="python"><code># small n vs big n
+n = 50
+small_n = betas(sigx,sigy,rho,n,m)
+
+n = 1000
+big_n = betas(sigx,sigy,rho,n,m)
+
+# Plot comparison for a small sample n vs big sample n
+plt.figure()
+plt.hist(small_n, bins = 30, color = &#39;blue&#39;)</code></pre>
+<pre><code>## (array([5.000e+00, 1.000e+00, 6.000e+00, 1.500e+01, 1.900e+01, 4.700e+01,
+##        7.500e+01, 1.770e+02, 2.340e+02, 3.740e+02, 5.090e+02, 6.380e+02,
+##        8.340e+02, 1.031e+03, 1.044e+03, 1.021e+03, 8.820e+02, 8.480e+02,
+##        6.760e+02, 5.630e+02, 3.710e+02, 2.400e+02, 1.710e+02, 1.070e+02,
+##        6.000e+01, 2.300e+01, 1.500e+01, 1.000e+01, 1.000e+00, 3.000e+00]), array([-1.39291284, -1.28079866, -1.16868447, -1.05657029, -0.9444561 ,
+##        -0.83234192, -0.72022773, -0.60811355, -0.49599936, -0.38388518,
+##        -0.27177099, -0.15965681, -0.04754262,  0.06457156,  0.17668575,
+##         0.28879993,  0.40091412,  0.5130283 ,  0.62514249,  0.73725667,
+##         0.84937086,  0.96148505,  1.07359923,  1.18571342,  1.2978276 ,
+##         1.40994179,  1.52205597,  1.63417016,  1.74628434,  1.85839853,
+##         1.97051271]), &lt;a list of 30 Patch objects&gt;)</code></pre>
+<pre class="python"><code>plt.hist(big_n, bins = 30, color = &#39;red&#39;)</code></pre>
+<pre><code>## (array([3.000e+00, 1.000e+00, 4.000e+00, 1.400e+01, 1.600e+01, 2.900e+01,
+##        6.300e+01, 1.340e+02, 1.890e+02, 3.250e+02, 4.680e+02, 5.730e+02,
+##        7.120e+02, 8.660e+02, 1.059e+03, 1.036e+03, 1.028e+03, 9.270e+02,
+##        8.290e+02, 5.430e+02, 4.100e+02, 3.000e+02, 2.110e+02, 1.190e+02,
+##        8.200e+01, 3.300e+01, 1.200e+01, 8.000e+00, 4.000e+00, 2.000e+00]), array([-0.08098357, -0.05648274, -0.0319819 , -0.00748107,  0.01701976,
+##         0.04152059,  0.06602143,  0.09052226,  0.11502309,  0.13952392,
+##         0.16402476,  0.18852559,  0.21302642,  0.23752725,  0.26202809,
+##         0.28652892,  0.31102975,  0.33553058,  0.36003142,  0.38453225,
+##         0.40903308,  0.43353391,  0.45803475,  0.48253558,  0.50703641,
+##         0.53153724,  0.55603808,  0.58053891,  0.60503974,  0.62954057,
+##         0.65404141]), &lt;a list of 30 Patch objects&gt;)</code></pre>
+<pre class="python"><code>plt.show()</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>In blue we see how a small n makes the uncertainty around the beta greater. It makes the number oscillate between 1 and 3.
+While when our sampling size is greater our potential betas are more concentrated around the mean.
+See the differences between the means and the standard deviations</p>
+<pre class="python"><code># print means for both groups
+np.mean(small_n)</code></pre>
+<pre><code>## 0.2955641426154444</code></pre>
+<pre class="python"><code>np.mean(big_n)
+
+# print Std for both groups </code></pre>
+<pre><code>## 0.29880369365143183</code></pre>
+<pre class="python"><code>np.std(small_n)</code></pre>
+<pre><code>## 0.4350243286600165</code></pre>
+<pre class="python"><code>np.std(big_n)</code></pre>
+<pre><code>## 0.09415958348189908</code></pre>
+<p>Now let’s do the same for a large value of rho and and a small effect closer to 0.</p>
+<pre class="python"><code>
+# Small Rho vs big Rho
+n = 100 # adjust again n 
+
+# Small Rho
+rho = 0.01
+small_rho = betas(sigx,sigy,rho,n,m)
+
+# Big Rho
+rho = 0.9
+big_rho = betas(sigx,sigy,rho,n,m)
+
+# Plot comparison for a small rho n vs big rho
+plt.figure()
+plt.hist(small_rho, bins = 30, color = &#39;blue&#39;)</code></pre>
+<pre><code>## (array([2.00e+00, 5.00e+00, 1.80e+01, 2.00e+01, 5.30e+01, 9.00e+01,
+##        1.31e+02, 2.57e+02, 3.30e+02, 4.89e+02, 6.15e+02, 7.73e+02,
+##        8.91e+02, 9.34e+02, 9.82e+02, 1.01e+03, 8.87e+02, 7.32e+02,
+##        5.58e+02, 4.43e+02, 3.17e+02, 1.83e+02, 1.31e+02, 7.30e+01,
+##        3.20e+01, 2.00e+01, 1.40e+01, 7.00e+00, 2.00e+00, 1.00e+00]), array([-1.07327125, -0.99626772, -0.91926419, -0.84226067, -0.76525714,
+##        -0.68825361, -0.61125008, -0.53424655, -0.45724302, -0.3802395 ,
+##        -0.30323597, -0.22623244, -0.14922891, -0.07222538,  0.00477815,
+##         0.08178167,  0.1587852 ,  0.23578873,  0.31279226,  0.38979579,
+##         0.46679931,  0.54380284,  0.62080637,  0.6978099 ,  0.77481343,
+##         0.85181696,  0.92882048,  1.00582401,  1.08282754,  1.15983107,
+##         1.2368346 ]), &lt;a list of 30 Patch objects&gt;)</code></pre>
+<pre class="python"><code>plt.hist(big_rho, bins = 30, color = &#39;red&#39;)</code></pre>
+<pre><code>## (array([1.000e+00, 2.000e+00, 7.000e+00, 1.500e+01, 6.600e+01, 7.700e+01,
+##        1.300e+02, 2.120e+02, 3.060e+02, 4.750e+02, 6.010e+02, 7.770e+02,
+##        9.010e+02, 1.012e+03, 9.980e+02, 9.520e+02, 8.630e+02, 7.360e+02,
+##        5.760e+02, 4.830e+02, 3.300e+02, 1.920e+02, 1.410e+02, 6.200e+01,
+##        3.500e+01, 2.500e+01, 1.500e+01, 5.000e+00, 4.000e+00, 1.000e+00]), array([2.21647366, 2.24980834, 2.28314301, 2.31647769, 2.34981236,
+##        2.38314704, 2.41648171, 2.44981639, 2.48315106, 2.51648574,
+##        2.54982041, 2.58315509, 2.61648977, 2.64982444, 2.68315912,
+##        2.71649379, 2.74982847, 2.78316314, 2.81649782, 2.84983249,
+##        2.88316717, 2.91650184, 2.94983652, 2.98317119, 3.01650587,
+##        3.04984054, 3.08317522, 3.11650989, 3.14984457, 3.18317925,
+##        3.21651392]), &lt;a list of 30 Patch objects&gt;)</code></pre>
+<pre class="python"><code>plt.show()</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>In this case we see how rho affects at the correlation between x and y. When rho is small the values of beta are more likely to be zero.
+On the other hand, when rho is high values of beta are extremely different from 0</p>
+</div>
+<div id="problem-2" class="section level3">
+<h3>Problem 2:</h3>
+<p>Implement the standard error formula for betahat. Extend your work in the prior problem to compute the normalized coefficient zhat = betahat/std(betahat). Look into scipy.stats package and find the student-t distribution. Use the t.pdf() function to plot a student-t distribution with v = n - 2 degrees of freedom on top of a histogram of zhat values and compare the two.</p>
+<p>For this we will first implement a standard error formula for betahat. This function is defined as we saw in class as</p>
+<pre class="python"><code># Define the Standard Error formula
+def se_beta(y,x,df):
+  # An estimate for se(betahat) = sqrt((1/v sum(yhat - yi)^2)/sum(xi-mean(x)^2))
+  
+  # define degrees of freedom t distribution
+  v = 1/df
+  
+  # define y hat from the beta value
+  yhat = alphahat + betahat*x # estimate yhat
+  # Calculate standard error of betahat
+  # Calculate numerator and denominator
+  num = v * np.sum((yhat - y)**2) # sum of squared error of predicted yhat
+  dem = np.sum((x - np.mean(x))**2) # Var of x
+  
+  # return se_beta: how much does yhat err scaled by the variance of x
+  return(np.sqrt(num/dem))
+
+
+# Include this in the function we created previously and store zhat of every iteration
+
+def zetas(sigx,sigy,rho,n,m):
+  &quot;&quot;&quot;docstring for betas&quot;&quot;&quot;
+  zetas = [] # Store results
+  mu = np.array([0.,0.])
+  cov = np.array([[ sigx*sigx , rho*sigx*sigy ],[ rho*sigx*sigy , sigy*sigy]])
+  for i in m:
+    # LOOP over
+    # Sample the data with mu and covariance matrix
+    data = np.random.multivariate_normal(mu,cov,n)
+    x = data[:,0]
+    y = data[:,1]
+    
+    # fit the model
+    covmat = np.cov(x,y) # covariance matrix of x and y
+    betahat = covmat[0,1]/covmat[0,0] # Covmat[0,1] is the first row of the matrix covmat, 2nd column. And its the covariance of x,y, covmat[0,0] is the quasivariance of x
+    alphahat = np.mean(y) - betahat*np.mean(x) #alphahat is the mean value of y - meanvalue of x times the slope. 
+    
+    # Calculate Standard Error and zhat
+    se_betahat = se_beta(y,x,df = (n-2))
+    zhat = (betahat / se_betahat)
+    # Save zeta in vector
+    zetas.append(zhat)
+    
+  return(zetas)
+
+
+# Create t distribution line rv, and probability (pdf)
+from scipy.stats import t
+rv = t(df=(n - 2), loc=0, scale=1)
+# plot best fit model
+xvals = np.linspace(-4,4,150) # line of points where to calculate values
+yvals = betahat*xvals + alphahat</code></pre>
+<p>Now that we can calculate the standard error of beta we can calculate the z-score and compare that to the theoretical t-student distribution around value 0. We can visually see if one is different from the other.</p>
+<pre class="python"><code># rho high 
+rho = 0.7
+zeta_hats = zetas(sigx,sigy,rho,n,m)
+
+# Compare t-distribution with v degrees of freedom (blue) and actual zhat distribution when rho is high (orange)
+plt.figure()
+plt.plot(xvals,rv.pdf(x=xvals))
+plt.hist(zeta_hats,density = True,histtype = &#39;stepfilled&#39;,bins = 50)</code></pre>
+<pre><code>## (array([0.00289537, 0.00289537, 0.00144769, 0.00868611, 0.00144769,
+##        0.00723843, 0.00868611, 0.00868611, 0.01158148, 0.01447686,
+##        0.0202676 , 0.03474445, 0.03474445, 0.05211668, 0.050669  ,
+##        0.07238428, 0.10423336, 0.11147179, 0.19543756, 0.17951301,
+##        0.25334498, 0.30835703, 0.40100891, 0.43430568, 0.5023469 ,
+##        0.58486498, 0.65435389, 0.68475529, 0.74121502, 0.76437799,
+##        0.90046044, 0.89032664, 0.87150673, 0.83820996, 0.8034655 ,
+##        0.73108122, 0.69054603, 0.56459738, 0.50089922, 0.39666585,
+##        0.34310149, 0.25044961, 0.16358847, 0.11291948, 0.06948891,
+##        0.04777362, 0.02461066, 0.01447686, 0.00579074, 0.00434306]), array([4.26703536, 4.33611113, 4.4051869 , 4.47426267, 4.54333845,
+##        4.61241422, 4.68148999, 4.75056576, 4.81964153, 4.88871731,
+##        4.95779308, 5.02686885, 5.09594462, 5.1650204 , 5.23409617,
+##        5.30317194, 5.37224771, 5.44132348, 5.51039926, 5.57947503,
+##        5.6485508 , 5.71762657, 5.78670234, 5.85577812, 5.92485389,
+##        5.99392966, 6.06300543, 6.1320812 , 6.20115698, 6.27023275,
+##        6.33930852, 6.40838429, 6.47746006, 6.54653584, 6.61561161,
+##        6.68468738, 6.75376315, 6.82283892, 6.8919147 , 6.96099047,
+##        7.03006624, 7.09914201, 7.16821778, 7.23729356, 7.30636933,
+##        7.3754451 , 7.44452087, 7.51359664, 7.58267242, 7.65174819,
+##        7.72082396]), &lt;a list of 1 Patch objects&gt;)</code></pre>
+<pre class="python"><code>plt.show()
+
+
+# rho small (small beta)</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<pre class="python"><code>rho = 0.01
+zeta_hats = zetas(sigx,sigy,rho,n,m)
+
+# Compare t-distribution with v degrees of freedom (blue) and actual zhat distribution when rho is low (orange)
+plt.figure()
+plt.plot(xvals,rv.pdf(x=xvals))
+plt.hist(zeta_hats,density = True,histtype = &#39;stepfilled&#39;,bins = 50)</code></pre>
+<pre><code>## (array([0.000654  , 0.        , 0.        , 0.00327   , 0.00327   ,
+##        0.001962  , 0.00588601, 0.01635002, 0.01242602, 0.02354403,
+##        0.01896603, 0.04774207, 0.04643406, 0.06670809, 0.10202414,
+##        0.11510416, 0.16873223, 0.17396424, 0.21385829, 0.24917434,
+##        0.30476442, 0.30934243, 0.33746446, 0.38716853, 0.39043854,
+##        0.41071257, 0.41071257, 0.37539652, 0.34662048, 0.33027046,
+##        0.33484846, 0.27664238, 0.23217032, 0.21058829, 0.16284622,
+##        0.12426017, 0.09221413, 0.0699781 , 0.06016808, 0.03662405,
+##        0.02616004, 0.01962003, 0.00784801, 0.002616  , 0.00523201,
+##        0.001962  , 0.000654  , 0.001308  , 0.000654  , 0.000654  ]), array([-3.82226102e+00, -3.66935604e+00, -3.51645105e+00, -3.36354606e+00,
+##        -3.21064107e+00, -3.05773608e+00, -2.90483110e+00, -2.75192611e+00,
+##        -2.59902112e+00, -2.44611613e+00, -2.29321114e+00, -2.14030616e+00,
+##        -1.98740117e+00, -1.83449618e+00, -1.68159119e+00, -1.52868620e+00,
+##        -1.37578121e+00, -1.22287623e+00, -1.06997124e+00, -9.17066251e-01,
+##        -7.64161263e-01, -6.11256274e-01, -4.58351286e-01, -3.05446298e-01,
+##        -1.52541310e-01,  3.63677890e-04,  1.53268666e-01,  3.06173654e-01,
+##         4.59078642e-01,  6.11983630e-01,  7.64888618e-01,  9.17793606e-01,
+##         1.07069859e+00,  1.22360358e+00,  1.37650857e+00,  1.52941356e+00,
+##         1.68231855e+00,  1.83522354e+00,  1.98812852e+00,  2.14103351e+00,
+##         2.29393850e+00,  2.44684349e+00,  2.59974848e+00,  2.75265346e+00,
+##         2.90555845e+00,  3.05846344e+00,  3.21136843e+00,  3.36427342e+00,
+##         3.51717840e+00,  3.67008339e+00,  3.82298838e+00]), &lt;a list of 1 Patch objects&gt;)</code></pre>
+<pre class="python"><code>plt.show()
+</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-7-2.png" width="672" /></p>
+<p>When beta coefficient is high there’s a high probability the value is different than 0
+empirical sampling shows little to no overlap when rho is high, basically discarding the hypothesis that beta = 0
+However, overlap seems significant when rho is close to 0.</p>
+</div>
+<div id="problem-3" class="section level3">
+<h3>Problem 3:</h3>
+<p>Implement the p-value formula we mentioned in class using the quad method in scipy.integrate, and the student-t distribution from the prior problem
+Next, consider the OLS method in statsmodels. Fit a dataset using both methods that we considered in class and statmodels methods.
+Compute the summary stats of the statsmodels method, which includes betahat errors as well as associated p-values with your results from Problem 2</p>
+<pre class="python"><code># P-value formula using scipy.integrate
+
+import scipy.integrate as Int
+rho = 0.3
+mu = np.array([0.,0.])
+cov = np.array([[ sigx*sigx , rho*sigx*sigy ],[ rho*sigx*sigy , sigy*sigy]])
+data = np.random.multivariate_normal(mu,cov,n)
+x = data[:,0]
+y = data[:,1]
+
+# fit the model
+covmat = np.cov(x,y) # covariance matrix of x and y
+betahat = covmat[0,1]/covmat[0,0] # Covmat[0,1] is the first row of the matrix covmat, 2nd column. And its the covariance of x,y, covmat[0,0] is the quasivariance of x
+alphahat = np.mean(y) - betahat*np.mean(x) #alphahat is the mean value of y - meanvalue of x times the slope. 
+
+# Calculate Standard Error and zhat
+se_betahat = se_beta(y,x,df = (n-2))
+zhat = (betahat / se_betahat)
+
+
+pvalue_integration = Int.quad(rv.pdf,zhat,np.inf)[0]*2
+
+# Check with OLS method
+import statsmodels.api as sm
+# help(sm.OLS)
+X = sm.add_constant(x)
+model = sm.OLS(y,X).fit()
+model.summary()</code></pre>
+<pre><code>## &lt;class &#39;statsmodels.iolib.summary.Summary&#39;&gt;
+## &quot;&quot;&quot;
+##                             OLS Regression Results                            
+## ==============================================================================
+## Dep. Variable:                      y   R-squared:                       0.134
+## Model:                            OLS   Adj. R-squared:                  0.125
+## Method:                 Least Squares   F-statistic:                     15.11
+## Date:                Wed, 12 Feb 2020   Prob (F-statistic):           0.000185
+## Time:                        20:04:09   Log-Likelihood:                -116.29
+## No. Observations:                 100   AIC:                             236.6
+## Df Residuals:                      98   BIC:                             241.8
+## Df Model:                           1                                         
+## Covariance Type:            nonrobust                                         
+## ==============================================================================
+##                  coef    std err          t      P&gt;|t|      [0.025      0.975]
+## ------------------------------------------------------------------------------
+## const         -0.1123      0.079     -1.412      0.161      -0.270       0.045
+## x1             0.9570      0.246      3.887      0.000       0.468       1.446
+## ==============================================================================
+## Omnibus:                        2.646   Durbin-Watson:                   2.249
+## Prob(Omnibus):                  0.266   Jarque-Bera (JB):                2.211
+## Skew:                           0.241   Prob(JB):                        0.331
+## Kurtosis:                       2.454   Cond. No.                         3.16
+## ==============================================================================
+## 
+## Warnings:
+## [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+## &quot;&quot;&quot;</code></pre>
+<pre class="python"><code>pvalue_OLS = model.pvalues[1]
+
+# plot distribution and z score
+plt.figure()
+plt.plot(xvals,rv.pdf(xvals))
+plt.vlines(zhat,0,0.5)
+plt.show()</code></pre>
+<p><img src="/post/2020-02-12-how-variance-changes-in-regression_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>We can visually see that the z-score value is far from the mean. Now we can calculate the probability that the value is different from zero. In this case we are going to compare the 2 methods we used.</p>
+<pre class="python"><code># P-value via integration
+print(&#39;-------- P-value via integration -----------&#39;)</code></pre>
+<pre><code>## -------- P-value via integration -----------</code></pre>
+<pre class="python"><code>print(pvalue_integration)
+# P-value via statsmodels package </code></pre>
+<pre><code>## 0.00018451667902547525</code></pre>
+<pre class="python"><code>print(&#39;-------- P-value via statsmodels package -----------&#39;)</code></pre>
+<pre><code>## -------- P-value via statsmodels package -----------</code></pre>
+<pre class="python"><code>print(pvalue_OLS)
+</code></pre>
+<pre><code>## 0.00018451667901677135</code></pre>
+<p>As we can see both p-values are exactly the same when we calculate them via integration or with the statsmodel package</p>
+</div>
+</div>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="/2020/02/09/regression-from-scratch-and-simple/" title="Tutorial:Regression from Scratch and Simple">
+      Previous
+    </a>
+    
+
+    
+
+  
+
+
+</div>
+
+  
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  It&rsquo;s hard but you gotta keep trying
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  (c) 2020 Alvaro Aguado
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

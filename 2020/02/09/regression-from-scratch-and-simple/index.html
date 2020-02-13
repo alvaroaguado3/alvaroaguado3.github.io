@@ -5,7 +5,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Regression from Scratch and Simple  &middot; rTales: DataScience in Short</title>
+  <title>Tutorial:Regression from Scratch and Simple  &middot; rTales: DataScience in Short</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
@@ -17,7 +17,7 @@
 <meta name="keywords" content="regression, words, ">
 
 
-<meta property="og:title" content="Regression from Scratch and Simple  &middot; rTales: DataScience in Short ">
+<meta property="og:title" content="Tutorial:Regression from Scratch and Simple  &middot; rTales: DataScience in Short ">
 <meta property="og:site_name" content="rTales: DataScience in Short"/>
 <meta property="og:url" content="/2020/02/09/regression-from-scratch-and-simple/" />
 <meta property="og:locale" content="en-EN">
@@ -40,7 +40,7 @@
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@@neuronalnet" />
 <meta name="twitter:creator" content="@@neuronalnet" />
-<meta name="twitter:title" content="Regression from Scratch and Simple" />
+<meta name="twitter:title" content="Tutorial:Regression from Scratch and Simple" />
 <meta name="twitter:description" content="" />
 <meta name="twitter:url" content="/2020/02/09/regression-from-scratch-and-simple/" />
 <meta name="twitter:domain" content="/">
@@ -50,14 +50,14 @@
   {
     "@context": "http://schema.org",
     "@type": "Article",
-    "headline": "Regression from Scratch and Simple",
+    "headline": "Tutorial:Regression from Scratch and Simple",
     "author": {
       "@type": "Person",
       "name": "Alvaro Aguado"
     },
     "datePublished": "2020-02-09",
     "description": "",
-    "wordCount":  2828 
+    "wordCount":  5507 
   }
 </script>
 
@@ -193,7 +193,7 @@ MathJax.Hub.Config({
 
 <article id="main-content" class="container main_content single">
   <header class="container hat">
-  <h1>Regression from Scratch and Simple
+  <h1>Tutorial:Regression from Scratch and Simple
 </h1>
 
   <div class="metas">
@@ -203,8 +203,8 @@ MathJax.Hub.Config({
   
     &middot; by Alvaro Aguado
   
-  &middot; Read in about 14 min
-  &middot; (2828 Words)
+  &middot; Read in about 26 min
+  &middot; (5507 Words)
   <br>
   
 <a class="label" href="/tags/regression">Regression</a>
@@ -226,88 +226,89 @@ MathJax.Hub.Config({
 
 <div id="question" class="section level3">
 <h3>Question:</h3>
-<p>I’m not a math expert. But I want to understand regression completely. Can you please explain how to do Least Squares Regression from Scratch?</p>
+<p>I’m not a math expert. But I want to understand least squares completely. Can you please explain how to do Least Squares Regression from Scratch?</p>
 </div>
-<div id="solution" class="section level3">
-<h3>Solution:</h3>
-<p>Let’s see the hard math solution and then we will walk from scratch to make sure we understand this fully.</p>
-<p>Imagine we have the output variable <span class="math inline">\(y = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\)</span> and the input variables <span class="math inline">\(X = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\)</span> where the first column represents the intercept and the second column is the second variable.</p>
-<p>In order to do a least squares we need to find the values of <span class="math inline">\(\beta\)</span> that minimize the residual sum of squares <span class="math inline">\(RSS(\beta) = \sum_{i=1}^{N} (y_i - \beta_0 - \sum_{j=i}^p x_{ij}\beta_j)^2\)</span> or in matrix notation <span class="math inline">\(RSS(\beta) = (y - X\beta)^T(y-X\beta)\)</span></p>
-<p>Differentiating with respect to <span class="math inline">\(\beta\)</span> we obtain <span class="math display">\[\frac{\partial RSS}{\partial\beta} = -2X^T (y - X\beta) \]</span>
-If <span class="math inline">\(X\)</span> is full rank then we can set the first derivative to zero <span class="math inline">\(-2X^T (y - X\beta) = 0\)</span>. And if we isolate <span class="math inline">\(\beta\)</span> we get that <span class="math display">\[\hat \beta = (X^TX)^{-1}X^Ty \]</span><br />
-So if we apply this to our data then</p>
-<pre class="r"><code>x0 &lt;- matrix(data = c(1,1))
-x1 &lt;- matrix(data = c(1,2))
-y &lt;- matrix(data = c(2,1))
-
-X &lt;- cbind(x0,x1)
-
-betas_X &lt;- solve(t(X) %*% X) %*% t(X) %*% y
-
-## If we compare this to the lm function in R
-lm1 &lt;- lm(y ~ X - 1) 
-
-## If we compare the results
-t(betas_X)  # Result manual</code></pre>
-<pre><code>##      [,1] [,2]
-## [1,]    3   -1</code></pre>
-<pre class="r"><code>coef(lm1) # Result lm function</code></pre>
-<pre><code>## X1 X2 
-##  3 -1</code></pre>
-<p>How did we get here? Let’s do this very slowly to understand what’s happening.</p>
+<div id="preface" class="section level3">
+<h3>Preface</h3>
+<p>Regression is at the core of Machine Learning. Almost all the literature in predictive modelling, time series forecasting, and Artificial Intelligence, relies on the basic principles of linear regression. Nowadays everyone can compute linear regression using statistical software or even Excel, but how many people really know what’s going on behind the scenes. Not understanding the output of Least Squares Regression is the main reason why so many Data Science teams fail to interpret their models and gain insight about what is the data doing.
+Here we are going to break apart the black box and understand this simple, yet profound mechanism that lives at the core of many other models.</p>
+<p>This tutorial will start very easy and build on complexity as you acquire new knowledge. At the end of this tutorial you will be able to not only compute Least Squares regression by yourself, but also be able to understand and read the mathematical jargon and see how that translates with actual numbers. Numerical examples will be extremely simple, but they are always extensible to more complex models.</p>
+<p>At the end of this tutorial I will also provide the short algebraic answer.</p>
 </div>
 <div id="tutorial" class="section level3">
 <h3>Tutorial:</h3>
-<p>Let’s start simple. Imagine you have 2 points on a graph with x-axis and y-axis</p>
-<pre class="r"><code>x1 &lt;- matrix(data = c(1,2))
+<p>Let’s start with the easiest example possible, two points on a graph. We will plot this on the x-axis and y-axis.</p>
+<pre class="r"><code># Create data
+x1 &lt;- matrix(data = c(1,2))
 y &lt;- matrix(data = c(2,1))
+
+# Plot points
 plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Here is clear that a regression line will connect the first point (in x1 = 1 and y = 2) and the second point (in x1 = 2 and y = 1). So our line for every unit of x1 (from x = 1 to x = 2) descends 1 unit of y (from y = 2 to y = 1) and when x = 0 (the intercept) y should be = 3. Let’s make that plot, where the intercept = 3 and for each unit of x, y descends one unit (-1)</p>
-<pre class="r"><code>x1 &lt;- matrix(data = c(1,2))
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>Here is clear that a regression line will connect the first point (in x1 = 1 and y = 2) and the second point (in x1 = 2 and y = 1). So in our line for every unit of <span class="math inline">\(x1\)</span> (from x = 1 to x = 2) we descend 1 unit of <span class="math inline">\(y\)</span> (from y = 2 to y = 1) and when x = 0 (the intercept) y should be equal to 3. Let’s make that plot, where the intercept = 3 and for each unit of x, y descends one unit (-1)</p>
+<pre class="r"><code># Create data
+x1 &lt;- matrix(data = c(1,2))
 y &lt;- matrix(data = c(2,1))
+
+# Plot points
 plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)
 abline(a = 3,b = -1,col = &#39;red&#39;)</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Now that’s too easy because we only have two points and a line can explain the relationship perfectly. But what happens when there’s a third point that can’t be expressed as one line that goes through all the points. If we used the same line that extra point would be separated from the regression line by a distance. That distance is called residual.</p>
-<pre class="r"><code>x1 &lt;- matrix(data = c(1,2,1.5))
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Perfect! But that seems too easy because we only have two points. A line can explain the relationship of two points perfectly by passing through both points. But what happens when there’s a third point that can’t go through all the points? If we used the previous line, that extra point would be separated from the regression line by a small distance. That distance is called residual.</p>
+<pre class="r"><code># Create data
+x1 &lt;- matrix(data = c(1,2,1.5))
 y &lt;- matrix(data = c(2,1,1.75))
-plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)
-abline(a = 3,b = -1,col = &#39;red&#39;)
-segments(x0 = 1.5,x1 = 1.5,y0 = 1.75, y1 = 1.5,col = &quot;blue&quot;,lwd = 3)
-text(1.6,1.6,&quot;Residual &#39;e_2&#39;&quot;,pos = 4)</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>If we moved the slope of the regression, then the residuals of the initial points would grow. If you carefully see that blue line, that’s the <span style="text-decoration:underline">perpenticular</span> from each point to the regression line. That concept is very important, and it’s going to be the key of our Matrix calculations later in this tutorial. For now just consider that value of the red line (the regression line) in the y-axis for every point in the x-axis (x1 variable) we will call it <span class="math inline">\(\hat y\)</span> (y-hat). You can think of it as an input output machine. When I input a 1, my machine outputs a 2. When I input a 2, my machine outputs a 1. Well each output of the machine is called <span class="math inline">\(\hat y\)</span>.
-Now the real values of the <span class="math inline">\(y\)</span> variable are 2,1.75 and 1, and every value of <span class="math inline">\(\hat y\)</span> are 2,1.5 and 1. So the residuals for each <span class="math inline">\(e\)</span> are <span class="math inline">\(e = y - \hat y\)</span> are <span class="math inline">\(2-2 = 0, 1.75 - 1.5 = .25, 1 - 1 = 0\)</span>, so 0,.25 and 0. If we sum all the values (the sum of the residuals) the total would be 0.25
-Then the goal you would think is to minimize the sum of residuals. But instead, we almost always will want to minimize the sum of squares <span class="math inline">\((y - \hat y)^2\)</span>. (By the way the sum of squares in our previous example would be <span class="math inline">\(0^2 + 0.25^2 + 0^2 = 0.0625\)</span>)</p>
-<p><strong>Question 1:</strong> Why do we want to minimize the residual sum of squares in regression?</p>
-<p><strong>Solution 1:</strong> When we do regression we want to minimize the sum of the <span class="math inline">\(e\)</span>. But if we only wanted to minimize the value of the residuals then the best regression would be the mean value of <span class="math inline">\(y\)</span> (normally depicted as <span class="math inline">\(\bar y\)</span>). That will not capture the relationship between x and y. That’s why instead we want==</p>
-<p>Why? Look at the blue lines (the residuals of each point). And the red line is mean value of <span class="math inline">\(y\)</span></p>
-<pre class="r"><code>x1 &lt;- matrix(data = c(1,2,1.5))
-y &lt;- matrix(data = c(2,1,1.75))
+
+# Plot points
 plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)
 
+# Draw Regression line
+abline(a = 3,b = -1,col = &#39;red&#39;)
+
+# Draw Residuals and text
+segments(x0 = 1.5,x1 = 1.5,y0 = 1.75, y1 = 1.5,col = &quot;blue&quot;,lwd = 3)
+text(1.6,1.6,&quot;Residual &#39;e_2&#39;&quot;,pos = 4)</code></pre>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>If we moved the slope of the regression, then the residuals of the other points would grow. If you see the blue line, that’s the perpendicular from each point to the regression line. Now consider that the value of the red line in the y-axis for every point in the x-axis (x1 variable) it’s our prediction, will refer to it as <span class="math inline">\(\hat y\)</span> (y-hat). You can think of a regression as an input output machine. When I input a <span class="math inline">\(x=1\)</span>, my machine outputs a <span class="math inline">\(\hat y=2\)</span>. When I input a <span class="math inline">\(x=2\)</span>, my machine outputs a <span class="math inline">\(\hat y=1\)</span>, when I input a <span class="math inline">\(x=3\)</span> then my machine produces a <span class="math inline">\(\hat y=0\)</span> and so on.</p>
+<p>Now the real values of the <span class="math inline">\(y\)</span> variable are <span class="math inline">\(2,1.75\)</span> and <span class="math inline">\(1\)</span>, and the values of <span class="math inline">\(\hat y\)</span> are <span class="math inline">\(2,1.5\)</span> and <span class="math inline">\(1\)</span>. So the residuals <span class="math inline">\(e_i\)</span> are <span class="math inline">\(e_i = y_i - \hat y_i\)</span> are <span class="math inline">\(2-2 = 0, 1.75 - 1.5 = .25, 1 - 1 = 0\)</span>, so <span class="math inline">\(0,0.25\)</span> and <span class="math inline">\(0\)</span>. If we sum all the values (the sum of the residuals) the total would be <span class="math inline">\(0.25\)</span></p>
+<p>Instead, we almost always will want to minimize the residual sum of squares <span class="math inline">\((y - \hat y)^2\)</span>. (By the way the sum of squares in our previous example would be <span class="math inline">\(0^2 + 0.25^2 + 0^2 = 0.0625\)</span>)</p>
+<p><strong>Question 1:</strong> Why do we want to minimize the residual sum of squares in regression?</p>
+<p><strong>Solution 1:</strong> When we do regression we want to minimize the sum <span class="math inline">\(e_i\)</span>. But if we only sum the residuals then the best regression would be the mean value of <span class="math inline">\(y\)</span> (normally depicted as <span class="math inline">\(\bar y\)</span>). That will not capture the relationship between x and y, because it’s a constant, or in the graph a horizontal line. That’s why instead we want to use the residual sum of squares.</p>
+<p>Want to see an example? Look at the blue lines (the residuals of each point). If you sum their values, the negatives cancel the positive values, and as a result the best regression line is the mean value of <span class="math inline">\(y\)</span></p>
+<pre class="r"><code># Create data
+x1 &lt;- matrix(data = c(1,2,1.5))
+y &lt;- matrix(data = c(2,1,1.75))
 y_bar &lt;- mean(y)
+
+# Plot data
+plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)
+
+# Regress with sum of residuals
 abline(a = y_bar,b = 0,col = &#39;red&#39;)
+
+# Draw residuals
 segments(x0 = 1,x1 = 1,y0 = 2, y1 = y_bar,col = &quot;blue&quot;,lwd = 3)
 segments(x0 = 1.5,x1 = 1.5,y0 = 1.75, y1 = y_bar,col = &quot;blue&quot;,lwd = 3)
 segments(x0 = 2,x1 = 2,y0 = 1, y1 = y_bar,col = &quot;blue&quot;,lwd = 3)</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>The mean value of <span class="math inline">\(y =\)</span> 1.58 <span class="math inline">\(= \hat y\)</span></p>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+Let’s do the numerical exercise.
+The mean value of <span class="math inline">\(y =\)</span> 1.58 <span class="math inline">\(= \hat y\)</span></p>
 <p>If we sum all these blue bars <span class="math inline">\(e_i\)</span> (where i indicates the residual of each point <span class="math inline">\(e_1\)</span> is the residual of the point (x=1,y=2), <span class="math inline">\(e_2\)</span> the residual of (1.5,1.75) and <span class="math inline">\(e_3\)</span> the residual of (2,1)), the result would be <span class="math inline">\(e_1 = 2 - 1.58\)</span> , <span class="math inline">\(e_2 = 1.75 - 1.58\)</span> , <span class="math inline">\(e_3 = 1.75 - 1.58\)</span> If we sum the residuals then 0.42 + -0.58 + 0.17 = 0</p>
 <p>Instead we can use two strategies, either sum the absolute values of the residuals <span class="math inline">\(\sum \mid y - \hat y \mid\)</span> or the residual sum the squares <span class="math inline">\(\sum (y - \hat y)^2\)</span> also denoted as <span class="math inline">\(\mid\mid\ y - \hat y \mid\mid^2\)</span> which is the norm of the residuals, more on this later. In a different post we will explore the pros and cons of each one of them. But for now just remember that square of the residuals will penalize values that are far away, that way the line will cross the cloud of points. For now on, we will focus in this second one.</p>
-<p><strong>Question 2:</strong> How do we minimize the residual sum of squares in regression?</p>
 <p>As we saw, sometimes the best regression line will not fit perfectly every point. That means that the <span class="math inline">\(y\)</span> is not in the column space of <span class="math inline">\(x1\)</span> variable. That means that there isn´t any linear combination of <span class="math inline">\(x1\)</span> that predicts <span class="math inline">\(y\)</span> perfectly. What do we do instead? We predict <span class="math inline">\(\hat y\)</span> which is the closest projection of <span class="math inline">\(y\)</span> to the column space of <span class="math inline">\(x1\)</span> and <span class="math inline">\(x_0\)</span>.</p>
 <p>I use here a value for <span class="math inline">\(x_0\)</span> because you can interpret the intercept as a variable that always takes the value 1 like in this plot:</p>
 <pre class="r"><code>x0 &lt;- matrix(data = c(1,1))
 y &lt;- matrix(data = c(2,1))
 plot(x0,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>So basically we want to predict the following form:</p>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><strong>Question 2:</strong> How do we minimize the residual sum of squares in regression?</p>
+<p><strong>Solution 2</strong> We have to project the <span class="math inline">\(y\)</span> results on the column space of <span class="math inline">\(X\)</span></p>
+<p>Let’s start more slowly.We basically we want to predict the following form:</p>
 <p><span class="math display">\[\hat y = \beta_0x_0 + \sum_{i=1}^p{X_i \beta_i} \]</span>
-Where <span class="math inline">\(\hat y\)</span> is the closest or equal to <span class="math inline">\(y\)</span></p>
-<p>This means that an intercept <span class="math inline">\(\beta_0\)</span> + the product of all the dependent variables we have times their coefficient <span class="math inline">\(\beta_i\)</span> will produce the projection <span class="math inline">\(\hat y\)</span>
-If we go back to our original example with two points. <span class="math inline">\(\beta_0\)</span> it’s the the intercept = 3, and we only have 1 variable to predict so p = 1, because we only have one variable we only calculate 1 coefficient <span class="math inline">\(\beta_1\)</span>, which we saw it was -1. We can calculate then for example when our variable <span class="math inline">\(x1\)</span> = 1 we see that our formula spits out <span class="math inline">\(\hat y = \beta_0 + {X_1 \beta_1} = 3 + 1 * -1 = 2\)</span>. So conviniently this choice of <span class="math inline">\(\beta_0 = 3\)</span> and <span class="math inline">\(\beta_1 = -1\)</span> help us predict a value <span class="math inline">\(\hat y\)</span> that it’s the same as the actual <span class="math inline">\(y\)</span>. But in this case it was easy to do because there was a line that predicted every point, but how do we go about if there isn’t any combination of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> that perfectly predicts <span class="math inline">\(y\)</span>. That means the column space of <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span> we need to find the value for each <span class="math inline">\(\beta\)</span> that give us the <span class="math inline">\(\hat y\)</span> closest to <span class="math inline">\(y\)</span></p>
+Where <span class="math inline">\(\hat y\)</span> is the closest or equal to <span class="math inline">\(y\)</span>. We want a value <span class="math inline">\(\hat y\)</span> such that <span class="math inline">\((y - \hat y)^2\)</span> is as small as possible.</p>
+<p>This means that an intercept <span class="math inline">\(\beta_0\)</span> + the product of all the dependent variables we have times their coefficient <span class="math inline">\(\beta_i\)</span> will produce the projection <span class="math inline">\(\hat y\)</span> closest to the actual y.</p>
+<p>If we go back to our original example with two points. <span class="math inline">\(\beta_0\)</span> it’s the the intercept = 3, and we only have 1 variable to predict so p = 1, because we only have one variable we only calculate 1 coefficient <span class="math inline">\(\beta_1\)</span>, which we saw it was -1. We can calculate then for example when our variable <span class="math inline">\(x1\)</span> = 1 we see that our formula spits out <span class="math inline">\(\hat y = \beta_0 + {X_1 \beta_1} = 3 + 1 * -1 = 2\)</span>. So conveniently this choice of <span class="math inline">\(\beta_0 = 3\)</span> and <span class="math inline">\(\beta_1 = -1\)</span> help us predict a value <span class="math inline">\(\hat y\)</span> that it’s the same as the actual <span class="math inline">\(y\)</span>. But in this case it was easy to do because there was a line that predicted every point.
+But how do we go about if there isn’t any combination of <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> that perfectly predicts <span class="math inline">\(y\)</span>? In this case, mathematically speaking, it means <span class="math inline">\(y\)</span> doesn’t lie in the column space of <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span> and we need to find the value for each <span class="math inline">\(\beta\)</span> that give us the <span class="math inline">\(\hat y\)</span> closest to <span class="math inline">\(y\)</span></p>
 <p><strong>Question 2.1</strong> What is the column space?</p>
 <p><strong>Solution</strong> The column space is every linear combination of predictor variables <span class="math inline">\(x_0\)</span> and all the other <span class="math inline">\(x_i\)</span>. From now on when I refer to predictor variables I will show it as a big <span class="math inline">\(X\)</span>. Which can be represented as a matrix: <span class="math display">\[\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\]</span></p>
 <p>The first column is the values of <span class="math inline">\(x_0\)</span> and the second the values of <span class="math inline">\(x_1\)</span>. If we had more columns we would add more values. Then the column space would be the resulting space that could be predicted if we chose every value of <span class="math inline">\(\beta\)</span>. Let’s check an example. Imagine we are in the original data set with two points. To visually understand column space let’s choose one value for <span class="math inline">\(\beta_0\)</span> like 3 and let’s pick a few values of <span class="math inline">\(\beta_1\)</span> to see the different lines</p>
@@ -321,10 +322,10 @@ vals &lt;- seq(-10,10,length.out = 110)
 for( i in vals){
   abline(a = 3,b = i,col = &#39;red&#39;) # Line one
 }</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p>All the red lines and the space in between represent the column space of <span class="math inline">\(x_1\)</span> (if the origin was fixed = 3). Meaning all the vectors we could create by choosing different values of <span class="math inline">\(\beta_1\)</span>. We see that there’s at least one line that passes through both points <span class="math inline">\(y_1,y_2\)</span> that means that <span class="math inline">\(y\)</span> which can be seen as a matrix like before <span class="math inline">\(\begin{bmatrix}2 \\ 1\end{bmatrix}\)</span> it’s in the column space of <span class="math inline">\(X = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\)</span> because there’s a combination of betas <span class="math inline">\(\begin{bmatrix}\beta_0 \\ \beta_1\end{bmatrix} = \begin{bmatrix}3 \\ -1\end{bmatrix}\)</span> that multiplied by <span class="math inline">\(X= \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\)</span> will produce the same output <span class="math inline">\(\hat y = y = \begin{bmatrix}2 \\ 1\end{bmatrix}\)</span>. So we can draw this in matrix form like: <span class="math display">\[X \beta = y\]</span> where lower case indicates a matrix of one column (<em>a vector</em>) and upper case is a matrix of 2 or more columns. The numeric example would be <span class="math display">\[\begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix} \begin{pmatrix}\ 3 \\ -1\end{pmatrix} = \begin{pmatrix}2 \\ 1\end{pmatrix}\]</span></p>
 <p>Remember that matrix multiplication is always rows times columns so its equivalent to <span class="math inline">\(1*3 + 2*-1 = 2\)</span> and <span class="math inline">\(1*3 + 1*-1 = 1\)</span>
-For more on Linear Algebra and Matrices I highly recommend the videos of <span class="citation">@3blue1brown</span> link below. He explains visually how this works</p>
+For more on Linear Algebra and Matrices I highly recommend the videos of <span class="citation">@3blue1brown</span> on <a href="https://youtu.be/LyGKycYT2v0">matrix multiplication</a>. He explains visually how this works</p>
 <p>So for this case we were lucky that <span class="math inline">\(y\)</span> was on the column space or plainly speaking in the plane <span class="math inline">\(X\beta\)</span> but what happens when we have something like this</p>
 <pre class="r"><code>x0 &lt;- matrix(data = c(1,1,1))
 x1 &lt;- matrix(data = c(1,2,1.5))
@@ -335,41 +336,304 @@ vals &lt;- seq(-10,10,length.out = 110)
 for( i in vals){
   abline(a = 3,b = i,col = &#39;red&#39;) # Line one
 }</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>Here, even though we have several lines that pass close to all the points. There isn’t any line that passess through all the points at the same time. Which means there isn’t any combination of <span class="math inline">\(\beta\)</span> that will result in the vector <span class="math inline">\(y\)</span>. If you imagine the column space of <span class="math inline">\(X\)</span> as a flat sheet of possible vectors and <span class="math inline">\(y\)</span> as a vector that does not lie in the same sheet it could be troublesome to imagine the translation from the 2D graph. The reason is you have to imagine one vector made of 3 points that is pointing upward in that sheet</p>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Here, even though we have several lines that pass close to all the points. There isn’t any line that passes through all the points at the same time. Which means there isn’t any combination of <span class="math inline">\(\beta\)</span> that will result in the vector <span class="math inline">\(y\)</span>. If you imagine the column space of <span class="math inline">\(X\)</span> as a flat sheet of possible vectors and <span class="math inline">\(y\)</span> as a vector that does not lie in the same sheet it could be troublesome to imagine the translation from the 2D graph. The reason is you have to imagine one vector made of 3 points that is pointing upward in that sheet</p>
 <p>This 3D visualization might be hard to understand but it will help you transition from the previous graph.
-The red plane is the column space of <span class="math inline">\(X\)</span> but the actual solution <span class="math inline">\(y\)</span> it’s in a different blue plane.
-<img src="/post/2020-02-09-regression-from-scratch-and-simple_files/Column%20Space%20with%20example.PNG" alt="3D Column Space and Y vector" /></p>
-<p>If we simplify this 3D view to a sketch which shows the geometrical interpretation, we can see how the <span class="math inline">\(y\)</span> vector is not in the column space X.
+<img src="/./2020-02-09-regression-from-scratch-and-simple_files/Every_Regression_on_x0_equal_3.PNG" alt="Column Space in 3D" />The red planes are the column space of <span class="math inline">\(X\)</span> when we keep <span class="math inline">\(x0\)</span> fixed</p>
+<p>However, there isn’t a single red plane that can express the real solution (plane in blue), since this blue plane can’t be formed with a linear combination of <span class="math inline">\(x0\)</span> and <span class="math inline">\(x1\)</span></p>
+<div class="figure">
+<img src="/./2020-02-09-regression-from-scratch-and-simple_files/Every_Regression_on_x0_equal_3_and_Real_Solution.PNG" alt="Real_Solution_vs_Column_Space" />
+<p class="caption">Real_Solution_vs_Column_Space</p>
+</div>
+<p>So which of the red planes we should pick? If the blue plane means no residuals, but this can’t be accomplished by the red planes. Our best model will be the red plane that is closest to the blue solution. But this is really hard to see from this view. Instead why don’t we twist the way we are looking at the data. Instead of looking at the columns as the coordinate system, we can see each axis as a vector, drawn in the coordinate system of the rows. This may give you a headache at first glance but let’s take it slowly.</p>
+<p>Take each variable: <span class="math display">\[x_0 = \begin{pmatrix} 1 \\ 1 \\ 1\end{pmatrix} x_1 = \begin{pmatrix} 1 \\ 1.5 \\ 2 \end{pmatrix} y = \begin{pmatrix} 2 \\ 1.75 \\ 1 \end{pmatrix}\]</span>
+Each row could be view as an axis of the coordinate system <span class="math inline">\(r_1\)</span> <span class="math inline">\(r_2\)</span> <span class="math inline">\(r_3\)</span>
+So if we represent each variable in this coordinate system as a vector we could see this.</p>
+<p><img src="/./2020-02-09-regression-from-scratch-and-simple_files/Column_space_Visually.PNG" alt="Column Space Visually" />
+<img src="/./2020-02-09-regression-from-scratch-and-simple_files/y_does_not_lie_in_column_Space.PNG" alt="y does not lie in column space X" /></p>
+<p>Here the blue arrow is the target variable <span class="math inline">\(y\)</span> and the other two red arrows are the variables <span class="math inline">\(x_0\)</span> and <span class="math inline">\(x_1\)</span>, when we multiply any arrow by a number (a scalar) the result is a new arrow with a new span. When you combine both red arrows you will get a third arrow in the span of the red plane. But as you can see there, there’s no arrow that will land on the same place of the blue arrow. As before there’s no solution where residuals will be 0 (the blue arrow).</p>
+<p>Let’s sketch this same view, to see this more clearly. We can see again how the <span class="math inline">\(y\)</span> vector is not in the column space X.
 <img src="/post/2020-02-09-regression-from-scratch-and-simple_files/Column%20Space.png" alt="Column_Space_Geometrical Interpretation" /></p>
-<p>Then what is the best <span class="math inline">\(\hat y\)</span> that minimizes the error? Well the shortest line you can draw from <span class="math inline">\(y\)</span> to the column space of <span class="math inline">\(X\)</span> it’s the perpendicular line from <span class="math inline">\(y\)</span> to the column space. The same that the shortest distance between two points it’s a straight line, the shortest distance between a point and a plane is the perpenticular line from that point to the plane. Now instead of having a coefficient <span class="math inline">\(\beta\)</span> to calculate <span class="math inline">\(y\)</span> instead we have coefficient <span class="math inline">\(\hat \beta\)</span> to calculate <span class="math inline">\(\hat y\)</span> like <span class="math inline">\(\hat y = X \hat \beta\)</span></p>
-<p>But you are probably like. Wait wait wait, in this tutorial we were going really slow through the explanation and all of a sudden I can’t connect the dots between this picture</p>
-<pre class="r"><code>x1 &lt;- matrix(data = c(1,2,1.5))
-y &lt;- matrix(data = c(2,1,1.75))
-plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)
-abline(a = 3,b = -1,col = &#39;red&#39;)
-segments(x0 = 1.5,x1 = 1.5,y0 = 1.75, y1 = 1.5,col = &quot;blue&quot;,lwd = 3)
-text(1.6,1.6,&quot;Residual &#39;e_2&#39;&quot;,pos = 4)</code></pre>
-<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>and the geometrical interpretation.</p>
-<p>Think about it this way, if there´s a plane that fits perfectly the 3 points in <span class="math inline">\(y\)</span> but it´s impossible to create with the <span class="math inline">\(X\)</span> variables, then the best regression line (that minimizes the magintude of the residuals) in the <span class="math inline">\(X\)</span> column space is the perpendicular projection of the vector <span class="math inline">\(y\)</span> on the <span class="math inline">\(X\)</span> column space plane. That is the essence of Least Squares. The line that minimizes the residual sum of squares is the orthogonal (otherwise perpendicular) projection of <span class="math inline">\(y\)</span> on the column space <span class="math inline">\(X\)</span></p>
+<p>Then what is the best <span class="math inline">\(\hat y\)</span> that minimizes the error? In other words, what vector in the red plane (the column space) would be best if we can achieve the blue vector? Well the shortest line you can draw from <span class="math inline">\(y\)</span> to the column space of <span class="math inline">\(X\)</span> it’s the perpendicular line from <span class="math inline">\(y\)</span> to the column space. The same that the shortest distance between two points it’s a straight line, the shortest distance between a point and a plane is the perpendicular line from that point to the plane. Now instead of having a coefficient <span class="math inline">\(\beta\)</span> to calculate <span class="math inline">\(y\)</span> we will have coefficient <span class="math inline">\(\hat \beta\)</span>(beta hat) to calculate <span class="math inline">\(\hat y\)</span> like <span class="math inline">\(\hat y = X \hat \beta\)</span>. We call it <span class="math inline">\(\hat \beta\)</span> because the outputted vector will be <span class="math inline">\(\hat y\)</span> which is not exactly <span class="math inline">\(y\)</span>, but is the projection on the column space.</p>
+<p>I bet you are probably thinking; Wait wait wait, in this tutorial we were going really slow through the explanation and all of a sudden I can’t connect the dots between this picture</p>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>and the geometrical interpretation we just saw?</p>
+<p>Think about it this way, if there´s a plane that fits perfectly the 3 points in <span class="math inline">\(y\)</span> but it´s impossible to create with the <span class="math inline">\(X\)</span> variables, then the best regression line (that minimizes the magnitude of the residuals) in the <span class="math inline">\(X\)</span> column space is the perpendicular projection of the vector <span class="math inline">\(y\)</span> on the <span class="math inline">\(X\)</span> column space plane. That is the essence of Least Squares. The line that minimizes the residual sum of squares is the orthogonal (aka perpendicular) projection of <span class="math inline">\(y\)</span> on the column space <span class="math inline">\(X\)</span></p>
 <div class="figure">
 <img src="/post/2020-02-09-regression-from-scratch-and-simple_files/smallest%20residual.png" alt="Smallest Residual vector is the one Perpendicular to the column space" />
 <p class="caption">Smallest Residual vector is the one Perpendicular to the column space</p>
 </div>
-<p>Question 3: How do we calculate the orthogonal projection?</p>
-<p>Solution 3: The orthogonal projection is equivalent to the inner product of the column space <span class="math inline">\(X\)</span> and the error.</p>
+<p><strong>Question 3:</strong> How do we calculate the orthogonal projection?</p>
+<p><strong>Solution 3:</strong> The orthogonal projection is equivalent to the inner product of the column space <span class="math inline">\(X\)</span> and the error.</p>
 <p>Let’s break this down slowly. If we project the vector of the residual <span class="math inline">\(e\)</span> on to the plane the result will be 0. Because the vector of <span class="math inline">\(e\)</span> spans perpendicular to the column space <span class="math inline">\(X\)</span> plane. So the vector is 0. How do we do a perpendicular projection? In Euclidean spaces (our everyday spaces) with the dot product, that is equivalent to the inner product. In this case we want to project the residual e on the column space, with the dot product.</p>
 <p>This is represented as <span class="math inline">\(\langle X,e\rangle= 0\)</span> which is the equivalent of multiplying every item of <span class="math inline">\(X\)</span> with the item of <span class="math inline">\(e\)</span> and adding all together. Another way of doing this is by transposing the <span class="math inline">\(X\)</span> Matrix (flipping it sideways) and doing matrix multiplication as before. Let’s do this</p>
 <p><span class="math display">\[\langle X,e\rangle = X^Te = \begin{pmatrix} x_{01} &amp; x_{11} \\ x_{02} &amp; x_{12} \end{pmatrix}^T \cdot \begin{pmatrix}\ e_0 \\ e_1\end{pmatrix} = \begin{pmatrix} x_{01} &amp; x_{02} \\ x_{11} &amp; x_{12} \end{pmatrix} \cdot \begin{pmatrix}\ e_0 \\ e_1\end{pmatrix} = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix} \cdot \begin{pmatrix}\ e_0 \\ e_1\end{pmatrix} = \begin{pmatrix}1*e_0 + 1*e_0 \\ 1*e_1 + 2*e_1\end{pmatrix}\]</span>
 Take time to do this yourself and understand what is the Transpose doing and why is that equivalent to the dot product.
-To know more about the dot product see this video from 3blue1brown.</p>
+To know more about the dot product see this video from <span class="citation">@3blue1brown</span> on <a href="https://youtu.be/LyGKycYT2v0">dot product</a>.</p>
 <p>Next, we know that <span class="math inline">\(X^Te = 0\)</span> and we know that <span class="math inline">\(e = y - \hat y\)</span> moreover <span class="math inline">\(\hat y = X\hat\beta\)</span> putting it all together we have that</p>
 <p><span class="math display">\[X^T(y - X\hat\beta) = 0\]</span>
 With a little algebra we can solve this equation like this</p>
-<p><span class="math display">\[X^Ty - X^TX\hat\beta = 0\\ X^Ty = X^TX\hat\beta \\  X^Ty \div X^TX = (X^TX)^{-1} X^Ty = \hat \beta \]</span></p>
+<p><span class="math display">\[X^Ty - X^TX\hat\beta = 0\\ X^Ty = X^TX\hat\beta \\   \hat \beta = \frac{X^Ty}{X^TX}  = (X^TX)^{-1} X^Ty \]</span></p>
 <p>This <span class="math inline">\(\hat\beta = (X^TX)^{-1} X^Ty\)</span> is the most important formula to learn. And because we are using matrix notation it’s valid for 1 variable or 100 variables.</p>
-<p>We can do one more trick. If <span class="math inline">\(\hat y = X \hat \beta\)</span> then <span class="math inline">\(\hat y = X (X^TX)^{-1} X^Ty\)</span>. This piece <span class="math inline">\(X (X^TX)^{-1} X^T = H\)</span> it’s called Hat Matrix because it puts the hat on the <span class="math inline">\(y\)</span>. <span class="math inline">\(\hat y = Hy\)</span> and it’s going to tell us a lot of things about the projection <span class="math inline">\(\hat y\)</span></p>
+<p>So let’s go and calculate the <span class="math inline">\(\hat \beta\)</span> using the previous formula.</p>
+<pre class="r"><code># Create the data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+y &lt;- matrix(data = c(2,1,1.75))
+
+X &lt;- cbind(x0,x1)
+
+# Calculate Beta hat
+beta_hat = solve(t(X) %*% X) %*% t(X) %*% y  # the simbol %*% indicates matrix multiplication and solve() indicates inverse ^-1 
+
+#Label the rows and column
+dimnames(beta_hat) &lt;- list(c(&quot;beta_0 (Intercept)&quot;,&quot;beta_1&quot;),&quot;Coefficients&quot;)
+
+# Print Result
+beta_hat</code></pre>
+<pre><code>##                    Coefficients
+## beta_0 (Intercept)     3.083333
+## beta_1                -1.000000</code></pre>
+<p>Now we can predict our <span class="math inline">\(\hat y\)</span> by multiplying <span class="math inline">\(X\)</span> by <span class="math inline">\(\hat \beta\)</span>. Let’s see the result.</p>
+<pre class="r"><code># Create the data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+y &lt;- matrix(data = c(2,1,1.75))
+
+X &lt;- cbind(x0,x1)
+
+# Calculate Beta hat
+beta_hat = solve(t(X) %*% X) %*% t(X) %*% y  # the simbol %*% indicates matrix multiplication and 
+
+# Calculate Y hat
+y_hat = X %*% beta_hat 
+
+# Print
+y_hat</code></pre>
+<pre><code>##          [,1]
+## [1,] 2.083333
+## [2,] 1.083333
+## [3,] 1.583333</code></pre>
+<p>How does this look like in our original plot. Let’s see the Least Squares solution in orange.</p>
+<pre class="r"><code># Create data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+y &lt;- matrix(data = c(2,1,1.75))
+X &lt;- cbind(x0,x1)
+
+# Calculate Beta hat
+beta_hat = solve(t(X) %*% X) %*% t(X) %*% y  # the simbol %*% indicates matrix multiplication and 
+
+# Calculate Y hat
+y_hat = X %*% beta_hat 
+
+# Plot points
+plot(x1,y,pch = 20, xlim = c(0,4), ylim = c(0,4),cex = 2)
+
+# Draw Original Regression line
+abline(a = 3,b = -1,col = &#39;red&#39;)
+
+# Draw new Least Squares Solution
+abline(a = beta_hat[1],b = beta_hat[2],col = &#39;orange&#39;, lwd = 2)</code></pre>
+<p><img src="/post/2020-02-09-regression-from-scratch-and-simple_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Here even though it doesn’t look like much we have a smaller residuals sum of squares. Should we calculate it?</p>
+<pre class="r"><code># Create data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+y &lt;- matrix(data = c(2,1,1.75))
+X &lt;- cbind(x0,x1)
+
+# Calculate Beta_hat and y_hat
+beta_hat = solve(t(X) %*% X) %*% t(X) %*% y  # the simbol %*% indicates matrix multiplication and 
+y_hat = X %*% beta_hat 
+
+# Calculate suboptimal Y-hat with coefficients Intercept = 3 slope = -1
+beta2 &lt;- matrix(data = c(3,-1))
+y_hat2 = X %*% beta2 
+
+
+# Calculate residuals for Least Squares
+RSS_yhat = sum((y-y_hat)^2)
+# Calculate residuals for subOptimal Solution
+RSS_yhat2 = sum((y-y_hat2)^2)
+
+# Print
+print(paste(&quot;RSS of yhat:&quot;,RSS_yhat))</code></pre>
+<pre><code>## [1] &quot;RSS of yhat: 0.0416666666666667&quot;</code></pre>
+<pre class="r"><code>print(paste(&quot;RSS of sub-optimal yhat:&quot;,RSS_yhat2))</code></pre>
+<pre><code>## [1] &quot;RSS of sub-optimal yhat: 0.0625&quot;</code></pre>
+<p>How will this be represented in the 3D view we had before? In the original <span class="math inline">\(x_0\)</span>,<span class="math inline">\(x_1\)</span>,<span class="math inline">\(y\)</span>, the solution would look like this
+<img src="/./2020-02-09-regression-from-scratch-and-simple_files/Every_Regression_on_x0_equal_3_and_Real_Solution_and_Projected_Solution.PNG" alt="Optimal solution vs Projected Solution" /></p>
+<p>Where the optimal solution is the blue plane, and the projected solution is the orange, which coincides with one of the potential solutions of the red planes depicted.</p>
+<p>We can do one more trick. If <span class="math inline">\(\hat y = X \hat \beta\)</span> then <span class="math inline">\(\hat y = X (X^TX)^{-1} X^Ty\)</span>. This piece <span class="math inline">\(X (X^TX)^{-1} X^T = H\)</span> it’s called Hat Matrix because it puts the hat on the <span class="math inline">\(y\)</span>. <span class="math inline">\(\hat y = Hy\)</span> and it’s going to tell us a lot of things about the projection <span class="math inline">\(\hat y\)</span>. The geometrical interpretation is that is the orthogonal projection onto the column space (see above for how we get to this conclusion). It’s going to tell us how different <span class="math inline">\(y\)</span> and <span class="math inline">\(\hat y\)</span> will be. The Hat Matrix will explain the variance used from each of the variables, and the covariance from each of the combination of the <span class="math inline">\(X\)</span> variables, and one very important feature: We can find how to do a regression line with only one variable. I know it seems silly to have solved then N-dimensional solution try to now figure out the 1-dimensional solution. But going the other way around will miss the visual interpretation of Least Squares.</p>
+<p><strong>Question 4</strong>: How do you calculate the Simple linear Regression with one variable?</p>
+<p><strong>Solution 4</strong>: If <span class="math inline">\(X\)</span> only has one column <span class="math inline">\(x1\)</span> then the expression <span class="math inline">\(\hat \beta = (X^TX)^{-1} X^Ty\)</span> can be thought of like this:
+* <span class="math inline">\(X^TX = x_1^Tx_1 = \langle x_1,x_1\rangle\)</span> this is the same as Sum of Squares <span class="math inline">\(\sum x_1^2\)</span> (remember the dot product is the same as multiplying each item by itself and adding the result)
+* <span class="math inline">\((X^TX)^{-1}\)</span>: if <span class="math inline">\(X^TX\)</span> is the same as <span class="math inline">\(\sum x_1^2\)</span> then <span class="math inline">\((X^TX)^{-1} =\frac{1}{X^TX} = \frac{1}{\sum x_1^2}\)</span>. And as we saw before if <span class="math inline">\(\sum x_1^2\)</span> is the same as <span class="math inline">\(\langle x_1,x_1\rangle\)</span> then <span class="math inline">\(\frac{1}{\sum x_1^2}\)</span> is the same as <span class="math inline">\(\frac{1}{\langle x_1,x_1\rangle}\)</span>
+* Finally the piece <span class="math inline">\(X^Ty\)</span>: could be thought of <span class="math inline">\(x_1^Ty\)</span> or again <span class="math inline">\(\langle x_1,x_1\rangle\)</span> which is again the dot product of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y\)</span> or <span class="math inline">\(\sum x_1y\)</span></p>
+<p>Putting all together <span class="math inline">\(\hat \beta = \frac{\langle x_1,y\rangle}{\langle x_1,x_1\rangle}\)</span> or <span class="math inline">\(\hat \beta = \frac{x_1^Ty}{x_1^Tx_1}\)</span></p>
+<p>What’s more. If we use the form we learned that <span class="math inline">\(\hat y = H y\)</span> where <span class="math inline">\(H = X(X^TX)^{-1} X^T\)</span> this could be re-written as <span class="math inline">\(H = x_1 \frac{1}{\sum x_1^2} x_1^T\)</span> (I’m mixing Matrix notation with simple notation which is <strong>wrong</strong> but I want you to get the point). Let’s see how this last operation will play out with numbers.</p>
+<p><span class="math display">\[H = \begin{pmatrix}1\\1.5\\2 \end{pmatrix} \frac{1}{\sum x_1^2} \begin{pmatrix} 1 &amp; 1.5 &amp; 2 \end{pmatrix}\]</span>
+If we do this by number then we will get the following. <span class="math inline">\(H_{11} = \frac{1 * 1}{1^2 + 1.5^2 + 2^2} = \frac{1}{7.25} = 0.138\)</span>
+<span class="math inline">\(H_{12} = \frac{1 * 1.5}{1^2 + 1.5^2 + 2^2} = \frac{1.5}{7.25} = 0.207\)</span>
+<span class="math inline">\(H_{13} = \frac{1 * 2}{1^2 + 1.5^2 + 2^2} = \frac{2}{7.25} = 0.275\)</span>
+<span class="math inline">\(\cdots\)</span>
+<span class="math inline">\(H_{33} = \frac{2 * 2}{1^2 + 1.5^2 + 2^2} = \frac{4}{7.25} = 0.552\)</span></p>
+<p>The result is something like this:
+<span class="math display">\[H = \begin{pmatrix}0.14 &amp; 0.20 &amp; 0.27 \\ 0.20 &amp; 0.31 &amp; 0.41 \\ 0.27 &amp; 0.41 &amp; 0.55 \end{pmatrix}
+\]</span></p>
+<p>Do you see what this is? First notice that the diagonal values correspond to the point multiplied by itself (divided by the square of all the other points. This is equivalent of saying what proportion of the total <span class="math inline">\(\sum x_1^2\)</span> does the each point represent. Could you guess what happens if the one of the points is abnormally big? What would be it’s value in the diagonal? The answer would be very big. But because each numerator is going to be a part of the total denominator, a value of this diagonal could only go as high as 0.999 or 1. Let’s try that out.</p>
+<p>Imagine we change the last point from 2 to 20. What would happen to the equation?</p>
+<p><span class="math display">\[H = \begin{pmatrix}1\\1.5\\20 \end{pmatrix} \frac{1}{\sum x_1^2} \begin{pmatrix} 1 &amp; 1.5 &amp; 20 \end{pmatrix}\]</span></p>
+<p><span class="math display">\[H = \begin{pmatrix}0.00 &amp; 0.00 &amp; 0.05 \\ 0.00 &amp; 0.01 &amp; 0.07 \\ 0.05 &amp; 0.07 &amp; 0.99 \end{pmatrix}
+\]</span>
+Now all of a sudden all the third point has a very high value in the diagonal, and the other values in the diagonal are almost 0. This is the <strong>leverage</strong>. The leverage is the degree of influence of the each point on each <span class="math inline">\(\hat y\)</span> value prediction. This means that a diagonal value very high means that the slope will significantly change due to this point. You can find more information on the <strong>leverage</strong> and the degree of influence on the fitted value <a href="https://en.wikipedia.org/wiki/Leverage_(statistics)">here</a></p>
+<p>But what about the other points what do those mean? Well for example the value <span class="math inline">\(H_12\)</span> is the influence of the point 1 on the fitted value 2. This is symmetrical to say the value <span class="math inline">\(H_21\)</span> is the influence of the point 2 on the fitted value 1, because when the regression line pivots, one side goes up or down and the other side of the pivot goes in the opposite direction.</p>
+<p>There’s a lot more about the Hat matrix <span class="math inline">\(H\)</span> but we will talk about it in a future post.</p>
+<p><strong>Question 5</strong>: But I have seen that for the Simple linear Regression the slope <span class="math inline">\(\beta_1\)</span> is equal to the covariance of x and y divided by variance of x written as <span class="math inline">\(\beta_1 = \frac{cov(x,y)}{var(x)}\)</span> and that the intercept is the mean of <span class="math inline">\(y\)</span> minus the <span class="math inline">\(\beta_1\)</span> times the mean of x <span class="math inline">\(\beta_0 = \bar y - \beta_1 \bar x\)</span> How is this related to the equations we saw before?</p>
+<p><strong>Solution 5</strong>: The intercept is the same thing as shifting the entire coordinate system up or down. So from the solution we had before</p>
+<p>Because we have two variables the simplification we did on <strong>Question 4</strong> gets a little more complicated. But let’s do this again. <span class="math inline">\(\hat \beta = (X^TX)^{-1} X^Ty\)</span>. Now I will refer to <span class="math inline">\(x_0\)</span> as 1’s in a matrix, because it will make the calculations easier. I will do the formulas and below the code in R.</p>
+<ul>
+<li><p><span class="math inline">\(X= \begin{pmatrix} 1 &amp; x_{11} \\ 1 &amp; x_{12} \\ 1 &amp; x_{13} \end{pmatrix}\)</span></p></li>
+<li><p><span class="math inline">\(X^TX = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ x_{11} &amp; x_{12} &amp; x_{13} \end{pmatrix}\begin{pmatrix} 1 &amp; x_{11} \\ 1 &amp; x_{12} \\ 1 &amp; x_{13} \end{pmatrix} = \begin{pmatrix} n &amp; \sum x_1 \\ \sum x_1 &amp; \sum x_1^2 \\ \end{pmatrix}\)</span></p></li>
+</ul>
+<p>Let’s do this with numbers</p>
+<pre class="r"><code># Create data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+X &lt;- cbind(x0,x1)
+
+# Print X
+print(X)</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1  1.0
+## [2,]    1  2.0
+## [3,]    1  1.5</code></pre>
+<pre class="r"><code>#Print X^T X
+t(X) %*% X</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]  3.0 4.50
+## [2,]  4.5 7.25</code></pre>
+<ul>
+<li><span class="math inline">\((X^TX)^{-1} = \frac{1}{n\sum x_1^2-(\sum x_1)^2} \begin{pmatrix} \sum x_1^2 &amp; \sum x_1 \\ \sum x_1 &amp; n \\ \end{pmatrix}\)</span></li>
+</ul>
+<pre class="r"><code># Create data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+X &lt;- cbind(x0,x1)
+Xb &lt;- cbind(x1,-x0)
+
+#Print (X^T X)^-1 form
+way1 = solve(t(X) %*% X)
+print(way1)</code></pre>
+<pre><code>##           [,1] [,2]
+## [1,]  4.833333   -3
+## [2,] -3.000000    2</code></pre>
+<pre class="r"><code># Print in fraction form
+frac = 1/(length(x0)*sum(x1^2)-(sum(x1)^2))
+mat = t(Xb) %*% Xb
+way2 = frac * mat
+
+#identical?
+if(sum(round(way1-way2,3))==0){paste(&quot;Identical&quot;)}else{&quot;not Identical&quot;}</code></pre>
+<pre><code>## [1] &quot;Identical&quot;</code></pre>
+<ul>
+<li>Finally <span class="math inline">\(X^Ty = \begin{pmatrix} 1 &amp; 1 &amp; 1\\ x_{11} &amp; x_{12} &amp; x_{13} \end{pmatrix}\begin{pmatrix} y_{1} \\ y_{2} \\ y_{3} \end{pmatrix} = \begin{pmatrix} \sum y \\ \sum yx_1 \end{pmatrix}\)</span></li>
+</ul>
+<pre class="r"><code># Create data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+X &lt;- cbind(x0,x1)
+Xb &lt;- cbind(x1,-x0)
+
+#Print (X^T X)^-1 form
+xty = t(X) %*% y
+print(xty)</code></pre>
+<pre><code>##       [,1]
+## [1,] 4.750
+## [2,] 6.625</code></pre>
+<pre class="r"><code># Its the same as 
+xty_2 = matrix(c(sum(y),sum(x1*y)))
+
+#Identical?
+identical(xty,xty_2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<p>If we put all this together<br />
+<span class="math display">\[\hat \beta = \frac{1}{n\sum x_1^2-(\sum x_1)^2} \begin{pmatrix} \sum x_1^2 &amp; \sum x_1 \\ \sum x_1 &amp; n \\ \end{pmatrix} \begin{pmatrix} \sum y \\ \sum yx_1 \end{pmatrix} \]</span>
+if we do some algebra we end up with
+<span class="math display">\[\hat \beta = \begin{pmatrix} \bar y - \frac{\sum(x_1-\bar x_1)(y - \bar y)}{\sum(x_1 - \bar x)^2}\bar x \\ \frac{\sum(x_1-\bar x_1)(y - \bar y)}{\sum(x_1 - \bar x)^2}  \end{pmatrix} = \begin{pmatrix} \bar y - \frac{SP_{x_1y}}{SS_{x_1}}\bar x_1 \\  \frac{SP_{x_1y}}{SS_{x_1}} \end{pmatrix} = \begin{pmatrix} \hat \beta_0 \\ \hat \beta_1 \end{pmatrix} \]</span></p>
+<p>You can see how the coefficient of <span class="math inline">\(\hat \beta_1\)</span> is the covariance of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(y\)</span> divided by the variance of <span class="math inline">\(x_1\)</span> and the coefficient of the intercept is written in terms of <span class="math inline">\(\hat \beta_1\)</span></p>
+<p>This is interesting because we can apply the same process to estimate what is the <span class="math inline">\(\hat H\)</span> Hat matrix made of, and understand how is each of the individual <span class="math inline">\(h_{ij}\)</span> influencing the final <span class="math inline">\(\hat y\)</span></p>
+<p>That’s all. We went from the very basic to the more complicated definition of the formulation. There’s one more task we did not spend a lot of time explaining. How is the square of the residuals related to the Hat matrix. But you can find this yourself already.
+How? Well because if the <span class="math display">\[RSS = \sum e^2 = e^Te = \langle e,e\rangle\]</span></p>
+<p>and <span class="math display">\[e = y - \hat y = y - X\hat\beta = y - X(X^TX)^{-1} X^Ty\]</span></p>
+<p>then the square of <span class="math inline">\(e\)</span> it’s equal to</p>
+<p><span class="math display">\[ RSS = y^Ty - y^TX(X^TX)^{-1} X^Ty = y^T(I - H)y \]</span></p>
+<pre class="r"><code># Create data
+x0 &lt;- matrix(data = c(1,1,1))
+x1 &lt;- matrix(data = c(1,2,1.5))
+X &lt;- cbind(x0,x1)
+
+# Beta hat
+beta_hat = solve(t(X) %*% X) %*% t(X) %*% y
+y_hat = X%*%beta_hat
+
+# hat Matrix
+hat_matrix = X %*% solve(t(X) %*% X) %*% t(X)
+
+# RSS via hat matrix
+RSS_hat = t(y) %*% (diag(3) - hat_matrix) %*% y
+
+
+# Hat matrix via sum of squares
+RSS_yhat = sum((y-y_hat)^2)
+
+#identical?
+if(sum(round(RSS_hat-RSS_yhat,3))==0){paste(&quot;Identical&quot;)}else{&quot;not Identical&quot;}</code></pre>
+<pre><code>## [1] &quot;Identical&quot;</code></pre>
+</div>
+<div id="short-solution" class="section level3">
+<h3>Short Solution:</h3>
+<p>Now that we have worked out how does it work. Let’s show the algebraic solution to Least Squares.</p>
+<p>Imagine we have the output variable <span class="math inline">\(y = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\)</span> and the input variables <span class="math inline">\(X = \begin{pmatrix} 1 &amp; 1 \\ 1 &amp; 2 \end{pmatrix}\)</span> where the first column represents the intercept and the second column is the second variable.</p>
+<p>In order to do a least squares we need to find the values of <span class="math inline">\(\beta\)</span> that minimize the residual sum of squares <span class="math inline">\(RSS(\beta) = \sum_{i=1}^{N} (y_i - \beta_0 - \sum_{j=i}^p x_{ij}\beta_j)^2\)</span> or in matrix notation <span class="math inline">\(RSS(\beta) = (y - X\beta)^T(y-X\beta)\)</span></p>
+<p>Differentiating with respect to <span class="math inline">\(\beta\)</span> we obtain <span class="math display">\[\frac{\partial RSS}{\partial\beta} = -2X^T (y - X\beta) \]</span>
+If <span class="math inline">\(X\)</span> is full rank then we can set the first derivative to zero <span class="math inline">\(-2X^T (y - X\hat \beta) = 0\)</span>. This zero doesn’t mean that the RSS will be zero, instead it means that the value we find its a minimum for the function. If we isolate <span class="math inline">\(\hat\beta\)</span> we get that <span class="math display">\[\hat \beta = (X^TX)^{-1}X^Ty \]</span></p>
+<p>So let’s apply this to our data then</p>
+<pre class="r"><code># Create Data
+x0 &lt;- matrix(data = c(1,1))
+x1 &lt;- matrix(data = c(1,2))
+y &lt;- matrix(data = c(2,1))
+X &lt;- cbind(x0,x1)
+
+# Regress y on X
+betas_X &lt;- solve(t(X) %*% X) %*% t(X) %*% y
+
+## If we compare this to the lm function in R
+lm1 &lt;- lm(y ~ X - 1) # Regression using lm function
+
+## If we compare the results
+t(betas_X)  # Result manual</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    3   -1</code></pre>
+<pre class="r"><code>coef(lm1) # Result lm function</code></pre>
+<pre><code>## X1 X2 
+##  3 -1</code></pre>
+<p>Now can we predict <span class="math inline">\(\hat y\)</span> with <span class="math inline">\(X\hat\beta\)</span>. And check how well we did compared to the original ?</p>
+<pre class="r"><code># Multiply the variables by the coefficients
+y_hat &lt;- X %*% betas_X
+
+#Let&#39;s see the results from the original
+y</code></pre>
+<pre><code>##      [,1]
+## [1,]    2
+## [2,]    1</code></pre>
+<pre class="r"><code># And the results from our prediction
+y_hat</code></pre>
+<pre><code>##      [,1]
+## [1,]    2
+## [2,]    1</code></pre>
+<p>Pretty good! I mean it’s a simple example but if we get exactly what’s going on we will be able to give a better interpretation to the outputs we get when we do regression in any statistical software.</p>
 </div>
 
 </div>
@@ -387,6 +651,10 @@ With a little algebra we can solve this equation like this</p>
     </a>
     
 
+    
+    <a class="next" href="/2020/02/12/how-does-certainty-of-beta-estimation-changes-with-sample-size/" title="Tutorial:How does certainty of beta estimation changes with sample size?">
+      Next
+    </a>
     
 
   

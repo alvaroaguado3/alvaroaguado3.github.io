@@ -21,8 +21,7 @@
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
       <guid>/regression-from-scratch-and-simple/</guid>
       <description>Question:I’m not a math expert. But I want to understand least squares completely. Can you please explain how to do Least Squares Regression from Scratch?
-Solution:Let’s see the hard math solution first and then we will walk through to make sure we understand this fully. Revisit this once you are done to see if you get it the second time.
-Imagine we have the output variable \(y = \begin{pmatrix} 2 \\ 1 \end{pmatrix}\) and the input variables \(X = \begin{pmatrix} 1 &amp;amp; 1 \\ 1 &amp;amp; 2 \end{pmatrix}\) where the first column represents the intercept and the second column is the second variable.</description>
+PrefaceRegression is at the core of Machine Learning. Almost all the literature in predictive modelling, time series forecasting, and Artificial Intelligence, relies on the basic principles of linear regression. Nowadays everyone can compute linear regression using statistical software or even Excel, but how many people really know what’s going on behind the scenes.</description>
     </item>
     
   </channel>

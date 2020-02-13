@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on rTales: DataScience in Short</title>
+    <link>/topics/python/</link>
+    <description>Recent content in Python on rTales: DataScience in Short</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-EN</language>
+    <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
+    <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
+    <copyright>(c) 2020 Alvaro Aguado</copyright>
+    <lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/topics/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tutorial:How does certainty of beta estimation changes with sample size?</title>
+      <link>/how-does-certainty-of-beta-estimation-changes-with-sample-size/</link>
+      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/how-does-certainty-of-beta-estimation-changes-with-sample-size/</guid>
+      <description>Linear RegressionWe first simulate data to see how to see how to calculate beta (slope) and alpha (constant) coefficients. We use a sampling method from a multivariate normal distribution with mean [0,0] and some covariance between independent variable x and target variable y.
+# Import Libraries import numpy as npimport matplotlib.pyplot as pltm = range(0,10000) # Datasetsn = 100 # number of pointssigx = .</description>
+    </item>
+    
+  </channel>
+</rss>
