@@ -59,7 +59,7 @@
     },
     "datePublished": "2020-03-22",
     "description": "",
-    "wordCount":  637 
+    "wordCount":  660 
   }
 </script>
 
@@ -205,8 +205,8 @@ MathJax.Hub.Config({
   
     &middot; by Alvaro Aguado
   
-  &middot; Read in about 3 min
-  &middot; (637 Words)
+  &middot; Read in about 4 min
+  &middot; (660 Words)
   <br>
   
 <a class="label" href="/tags/easy">Easy</a>
@@ -224,22 +224,15 @@ MathJax.Hub.Config({
 
 <div id="question" class="section level3">
 <h3>Question:</h3>
-<p>How can I fit a sigmoid function to time series data in R?</p>
+<p>How can I fit a sigmoid function to time series data in R? Because when I run <code>nls</code> I get the following error <code>Error in nlsModel(formula, mf, start, wts) : singular gradient matrix at initial parameter estimates</code></p>
 </div>
 <div id="solution" class="section level3">
 <h3>Solution:</h3>
+<p>Normally we find many problems when trying to fit a non linear model to time series data. Specifically, when we don’t define correctly the starting values we get the error of singular gradient matrix error. The fact that every value of time corresponds to only one value on the y-axis makes the whole process harder for the solver in R. The solution is to use <em>Self Start models</em></p>
 <p>To fit a non linear regression with a sigmoid function to time series data you can use the <code>nls</code> function with a self-start function. In this case <code>SSlogis</code></p>
-<pre class="r"><code>require(tidyverse)</code></pre>
-<pre><code>## Loading required package: tidyverse</code></pre>
-<pre><code>## -- Attaching packages -------------------------- tidyverse 1.2.1 --</code></pre>
-<pre><code>## v ggplot2 3.2.1     v purrr   0.3.3
-## v tibble  2.1.3     v dplyr   0.8.3
-## v tidyr   1.0.0     v stringr 1.4.0
-## v readr   1.3.1     v forcats 0.4.0</code></pre>
-<pre><code>## -- Conflicts ----------------------------- tidyverse_conflicts() --
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre class="r"><code># Create data set 
+<pre class="r"><code>require(tidyverse)
+
+# Create data set 
 tbl &lt;- tibble::tribble(~date,~y,  &quot;2020-01-22&quot;,   548L,  &quot;2020-01-23&quot;,   643L,  &quot;2020-01-24&quot;,   920L,  &quot;2020-01-25&quot;,  1406L,  &quot;2020-01-26&quot;,  2075L,  &quot;2020-01-27&quot;,  2877L,  &quot;2020-01-28&quot;,  5509L,  &quot;2020-01-29&quot;,  6087L,  &quot;2020-01-30&quot;,  8141L,  &quot;2020-01-31&quot;,  9802L,  &quot;2020-02-01&quot;, 11891L,  &quot;2020-02-02&quot;, 16630L,  &quot;2020-02-03&quot;, 19716L,  &quot;2020-02-04&quot;, 23707L,  &quot;2020-02-05&quot;, 27440L,  &quot;2020-02-06&quot;, 30587L,  &quot;2020-02-07&quot;, 34110L,  &quot;2020-02-08&quot;, 36814L,  &quot;2020-02-09&quot;, 39829L,  &quot;2020-02-10&quot;, 42354L,  &quot;2020-02-11&quot;, 44386L,  &quot;2020-02-12&quot;, 44759L,  &quot;2020-02-13&quot;, 59895L,  &quot;2020-02-14&quot;, 66358L,  &quot;2020-02-15&quot;, 68413L,  &quot;2020-02-16&quot;, 70513L,  &quot;2020-02-17&quot;, 72434L,  &quot;2020-02-18&quot;, 74211L,  &quot;2020-02-19&quot;, 74619L,  &quot;2020-02-20&quot;, 75077L,  &quot;2020-02-21&quot;, 75550L,  &quot;2020-02-22&quot;, 77001L,  &quot;2020-02-23&quot;, 77022L,  &quot;2020-02-24&quot;, 77241L,  &quot;2020-02-25&quot;, 77754L,  &quot;2020-02-26&quot;, 78166L,  &quot;2020-02-27&quot;, 78600L,  &quot;2020-02-28&quot;, 78928L,  &quot;2020-02-29&quot;, 79356L,  &quot;2020-03-01&quot;, 79932L,  &quot;2020-03-02&quot;, 80136L,  &quot;2020-03-03&quot;, 80261L,  &quot;2020-03-04&quot;, 80386L,  &quot;2020-03-05&quot;, 80537L,  &quot;2020-03-06&quot;, 80690L,  &quot;2020-03-07&quot;, 80770L,  &quot;2020-03-08&quot;, 80823L,  &quot;2020-03-09&quot;, 80860L,  &quot;2020-03-10&quot;, 80887L,  &quot;2020-03-11&quot;, 80921L,  &quot;2020-03-12&quot;, 80932L,  &quot;2020-03-13&quot;, 80945L,  &quot;2020-03-14&quot;, 80977L,  &quot;2020-03-15&quot;, 81003L,  &quot;2020-03-16&quot;, 81033L,  &quot;2020-03-17&quot;, 81058L,  &quot;2020-03-18&quot;, 81102L)
 
 # Convert Date to Sequence (Because you can&#39;t regress dates)
@@ -272,7 +265,7 @@ p &lt;- coef(fit)
 attach(tbl)
 plot(x,y,title(main = &quot;Sigmoid Fitting&quot;),xlab = &quot;Days&quot;,ylab = &#39;Counts&#39;,pch = 20)
 curve(SSlogis(x,p[&quot;a&quot;],p[&quot;b&quot;],p[&quot;c&quot;]),lwd = 2, col = &#39;lightblue&#39;,add = TRUE) # Predict</code></pre>
-<p><img src="/post/2020-03-22-how-to-fit-sigmoid-to-time-series-data_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p><img src="/2020-03-22-how-to-fit-sigmoid-to-time-series-data_files/figure-html/SigmoidFitting-1.png" width="672" /></p>
 <pre class="r"><code>detach(tbl)</code></pre>
 <p>That’s it that’s all you need</p>
 </div>
@@ -287,7 +280,7 @@ detach(tbl)
 # Plot further out output 
 new_x &lt;- seq(1,100)
 lines(SSlogis(new_x,p[&quot;a&quot;],p[&quot;b&quot;],p[&quot;c&quot;]),lwd = 2, col = &#39;firebrick&#39;) # Predict</code></pre>
-<p><img src="/post/2020-03-22-how-to-fit-sigmoid-to-time-series-data_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="/2020-03-22-how-to-fit-sigmoid-to-time-series-data_files/figure-html/ForecastData-1.png" width="672" /></p>
 <p>You can use a different function to fit this too. There’s a long list of Self starting Non linear</p>
 <pre class="r"><code># Fit an assymptotic curve SSgompertz(x, Asym, b2, b3)
 # Run regression nls with formula SSlogis both from package stats 
@@ -303,12 +296,11 @@ p &lt;- coef(fit_gompertz)
 attach(tbl)
 plot(x,y,title(main = &quot;Gompertz Fitting&quot;),xlab = &quot;Days&quot;,ylab = &#39;Counts&#39;,pch = 20)
 curve(SSgompertz(x,p[&quot;a&quot;],p[&quot;b&quot;],p[&quot;c&quot;]),lwd = 2, col = &#39;lightblue&#39;,add = TRUE) # Predict</code></pre>
-<p><img src="/post/2020-03-22-how-to-fit-sigmoid-to-time-series-data_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="/2020-03-22-how-to-fit-sigmoid-to-time-series-data_files/figure-html/FitGompertz-1.png" width="672" /></p>
 <pre class="r"><code>detach(tbl)</code></pre>
 <p>You can also calculate a model R-square by fitting this curve to a linear model</p>
-<pre class="r"><code>require(broom)</code></pre>
-<pre><code>## Loading required package: broom</code></pre>
-<pre class="r"><code># Regress both non-linear outputs in a linear model to get R-squares
+<pre class="r"><code>require(broom)
+# Regress both non-linear outputs in a linear model to get R-squares
 lm(y~predict(fit),data = tbl)  -&gt; lmfit_logistic
 lm(y~predict(fit_gompertz),data = tbl) -&gt; lmfit_gompertz
 
@@ -324,7 +316,6 @@ Comparison</code></pre>
 ## 2   Gompertz 0.9923591</code></pre>
 <pre class="r"><code># You can also run ANOVA between the two
 anova(lmfit_logistic,lmfit_gompertz) %&gt;% broom::tidy()</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: &#39;term&#39;.</code></pre>
 <pre><code>## # A tibble: 2 x 6
 ##   res.df        rss    df       sumsq statistic p.value
 ##    &lt;dbl&gt;      &lt;dbl&gt; &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
