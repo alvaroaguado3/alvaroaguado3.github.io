@@ -9,7 +9,7 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,9 +17,18 @@
     <item>
       <title>Easy</title>
       <link>/tags/easy/</link>
-      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
       <guid>/tags/easy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Regression</title>
+      <link>/tags/regression/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     
@@ -29,15 +38,6 @@
       <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
       <guid>/tags/least-squares/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Regression</title>
-      <link>/tags/regression/</link>
-      <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
-      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
-      <guid>/tags/regression/</guid>
       <description></description>
     </item>
     

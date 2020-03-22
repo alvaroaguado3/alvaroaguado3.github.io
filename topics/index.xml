@@ -9,10 +9,19 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Wed, 12 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/topics/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>R</title>
+      <link>/topics/r/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/topics/r/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Python</title>
@@ -20,15 +29,6 @@
       <pubDate>Wed, 12 Feb 2020 00:00:00 +0000</pubDate>
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
       <guid>/topics/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>R</title>
-      <link>/topics/r/</link>
-      <pubDate>Sun, 09 Feb 2020 00:00:00 +0000</pubDate>
-      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
-      <guid>/topics/r/</guid>
       <description></description>
     </item>
     

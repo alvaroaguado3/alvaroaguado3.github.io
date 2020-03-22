@@ -9,10 +9,21 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Sun, 09 Feb 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/topics/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to fit sigmoid to time series data</title>
+      <link>/how-to-fit-sigmoid-to-time-series-data/</link>
+      <pubDate>Sun, 22 Mar 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/how-to-fit-sigmoid-to-time-series-data/</guid>
+      <description>Question:How can I fit a sigmoid function to time series data in R?
+Solution:To fit a non linear regression with a sigmoid function to time series data you can use the nls function with a self-start function. In this case SSlogis
+require(tidyverse)## Loading required package: tidyverse## -- Attaching packages -------------------------- tidyverse 1.2.1 --## v ggplot2 3.2.1 v purrr 0.3.3## v tibble 2.1.3 v dplyr 0.</description>
+    </item>
     
     <item>
       <title>Tutorial:Regression from Scratch and Simple</title>
