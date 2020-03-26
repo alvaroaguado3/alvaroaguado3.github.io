@@ -4,13 +4,43 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/tags/easy/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/predict-time-series-sampling-from-historical-data/</loc>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/prediction/</loc>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/stochastic-process/</loc>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/topics/topic-1/</loc>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/topics/</loc>
+    <lastmod>2020-03-26T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -25,16 +55,6 @@
   
   <url>
     <loc>/tags/regression/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2020-03-22T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/topics/</loc>
     <lastmod>2020-03-22T00:00:00+00:00</lastmod>
   </url>
   

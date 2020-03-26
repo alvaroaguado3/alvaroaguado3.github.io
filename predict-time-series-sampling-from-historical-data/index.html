@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Predict time series sampling from historical data  &middot; rTales: DataScience in Short</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<meta name="description" content="description" />
+
+<meta name="keywords" content="key, words, ">
+
+
+<meta property="og:title" content="Predict time series sampling from historical data  &middot; rTales: DataScience in Short ">
+<meta property="og:site_name" content="rTales: DataScience in Short"/>
+<meta property="og:url" content="/predict-time-series-sampling-from-historical-data/" />
+<meta property="og:locale" content="en-EN">
+
+
+<meta property="og:type" content="article" />
+<meta property="og:description" content="description"/>
+<meta property="og:article:published_time" content="2020-03-26T00:00:00Z" />
+<meta property="og:article:modified_time" content="2020-03-26T00:00:00Z" />
+
+  
+    
+<meta property="og:article:tag" content="key">
+    
+<meta property="og:article:tag" content="words">
+    
+  
+
+  
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@@neuronalnet" />
+<meta name="twitter:creator" content="@@neuronalnet" />
+<meta name="twitter:title" content="Predict time series sampling from historical data" />
+<meta name="twitter:description" content="description" />
+<meta name="twitter:url" content="/predict-time-series-sampling-from-historical-data/" />
+<meta name="twitter:domain" content="/">
+  
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "headline": "Predict time series sampling from historical data",
+    "author": {
+      "@type": "Person",
+      "name": "Alvaro Aguado"
+    },
+    "datePublished": "2020-03-26",
+    "description": "description",
+    "wordCount":  465 
+  }
+</script>
+
+
+
+<link rel="canonical" href="/predict-time-series-sampling-from-historical-data/" />
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/touch-icon-144-precomposed.png">
+<link href="/favicon.png" rel="icon" type="image/x-icon" />
+
+<meta name="generator" content="Hugo 0.64.0" />
+
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link href='https://fonts.googleapis.com/css?family=Merriweather:300%7CRaleway%7COpen+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/highlight/default.css">
+
+  <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<script async type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-145400836-1', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+
+</head>
+<body>
+  <main id="main-wrapper" class="container main_wrapper has-sidebar">
+    <header id="main-header" class="container main_header">
+  <div class="container brand">
+  <div class="container title h1-like">
+  <img src="/rTales-logo.png">
+  <a class="baselink" href="/">
+  
+
+</a>
+
+</div>
+
+  
+<div class="container topline">
+  
+  Solve practical problems with Data Science and Technology
+
+
+</div>
+
+
+</div>
+
+  <nav class="container nav primary no-print">
+  
+
+<a class="homelink" href="/">Home</a>
+
+
+  
+<a href="/about">About</a>
+
+<a href="/post" title="Show list of posts">Posts</a>
+
+<a href="/resources">Resources</a>
+
+<a href="/tags" title="Show list of tags">Tags</a>
+
+
+</nav>
+
+<div class="container nav secondary no-print">
+  
+<a id="contact-link-email" class="contact_link" rel="me" aria-label="Email" href="mailto:alvaroaguado3@gmail.com">
+  <span class="fa fa-envelope-square"></span></a>
+
+
+
+<a id="contact-link-github" class="contact_link" rel="me" aria-label="Github" href="https://github.com/alvaroaguado3">
+  <span class="fa fa-github-square"></span></a>
+
+
+
+
+ 
+<a id="contact-link-linkedin" class="contact_link" rel="me" aria-label="LinkedIn" href="https://www.linkedin.com/in/alvaro-aguado-74314120/">
+  <span class="fa fa-linkedin-square"></span></a>
+
+
+
+
+
+
+
+<a id="contact-link-twitter" class="contact_link" rel="me" aria-label="Twitter" href="https://twitter.com/@neuronalnet">
+  <span class="fa fa-twitter-square"></span></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  
+
+</header>
+
+
+<article id="main-content" class="container main_content single">
+  <header class="container hat">
+  <h1>Predict time series sampling from historical data
+</h1>
+
+  <div class="metas">
+<time datetime="2020-03-26">26 Mar, 2020</time>
+
+
+  
+    &middot; by Alvaro A
+  
+  &middot; Read in about 3 min
+  &middot; (465 Words)
+  <br>
+  
+<a class="label" href="/tags/easy">Easy</a>
+
+<a class="label" href="/tags/prediction">Prediction</a>
+
+<a class="label" href="/tags/stochastic-process">Stochastic Process</a>
+
+
+</div>
+
+</header>
+
+  <div class="container content">
+  
+
+
+<p>This is part of a series of methods to predict stock performance by using different statistic approaches</p>
+<div id="question" class="section level3">
+<h3>Question:</h3>
+<p>How can I predict the performance of a stock or time series process using the distribution of the data?</p>
+</div>
+<div id="solution" class="section level3">
+<h3>Solution:</h3>
+<p>For this we will use a stock at random like <code>VISA</code> with ticker <code>V</code>in the <code>NYSE</code>. To use this predictive method we calculate the density (probability) of the different daily returns and we calculate several paths that the stock could follow. At the end we estimate the average path as our predicction.</p>
+<pre class="r"><code>require(tidyquant)
+require(tidyverse)
+library(gghighlight)
+
+# Download dataset
+tidyquant::tq_get(&quot;V&quot;) %&gt;% dplyr::filter(date &gt;= as.Date(&quot;2019-01-01&quot;)) -&gt; VISA
+
+# We calculate the daily returns (change of price of one day vs the day prior)
+VISA %&gt;% 
+  dplyr::select(date, close) %&gt;%
+  dplyr::mutate(delta = close - lag(close)) -&gt; VISA_df
+
+# Now we estimate the density of the daily returns (probability to get a return in a given day)
+VISA_df %&gt;% 
+  dplyr::filter(complete.cases(delta))  %&gt;%  # remove missing values (just 1)
+  pull(delta) %&gt;%  
+  density() -&gt; dens
+
+VISA_df$close %&gt;% tail(1) -&gt; lastPrice # lastPrice 
+VISA_df$date %&gt;% tail(1) -&gt; lastDate # lastPrice 
+
+# We sample from this probability what will be the next delta
+sampler &lt;- function(dens,n = 1){
+  sample &lt;- sample(dens$x,n,replace = TRUE, prob = dens$y)
+  return(sample)
+}
+
+# Add delta to the last price to calculate next day price 
+predPrice &lt;- function(sample,price){
+  newprice &lt;- price + sample
+  return(newprice)
+}
+
+# Now we calculate a prediction for N steps
+predPath &lt;- function(N = N,dens = dens,lastPrice = lastPrice){
+  vec &lt;- rep(NA,N)
+  base &lt;- lastPrice
+  # loop to do N steps
+  for(i in 1:N){
+    vec[i] &lt;- sampler(dens) %&gt;% predPrice(base)
+    base &lt;- vec[i] 
+  }
+  return(vec) # Return the predicted path
+}
+
+# Finally we can run this several times to have many predictions
+loopPaths &lt;- function(J = J, N = N, dens = dens, lastPrice = lastPrice){
+  simulations &lt;- list()
+  for(j in 1:J){
+    simulations[[j]] &lt;- predPath(N = N, dens = dens, lastPrice = lastPrice)
+  }
+  simulations %&gt;% plyr::ldply() -&gt; paths
+    return(paths)
+}
+
+# We run 100 simulations, for 365 predictions within each 
+loopPaths(J = 100, N = 365, dens = dens, lastPrice = lastPrice) %&gt;% t() -&gt; Predictions
+
+# Save the predictions in a data set
+data.frame(date = seq(lastDate+1,length.out = 365,by = &quot;day&quot;),Predictions) %&gt;% 
+  gather(key = &quot;simulation&quot;,value = &quot;close&quot;,-date) -&gt; Pred_set
+
+# Predict mean path
+Predictions %&gt;% apply(MARGIN = 1,mean) -&gt; Prediction_mean
+data.frame(date = seq(lastDate+1,length.out = 365,by = &quot;day&quot;),Prediction_mean) %&gt;% 
+  gather(key = &quot;simulation&quot;,value = &quot;close&quot;,-date) -&gt; Pred_mean_set
+
+# Combine all the data sets
+VISA_df %&gt;% dplyr::mutate(simulation = &quot;Original&quot;) %&gt;% 
+  dplyr::select(date,simulation, close) %&gt;% 
+  bind_rows(Pred_mean_set) %&gt;% 
+  bind_rows(Pred_set) -&gt; VISA_set
+
+
+# Visualize the predictions
+VISA_set %&gt;% 
+ggplot(aes(x = date, y = close, colour = simulation)) + geom_line(size = 2) +
+  gghighlight(grepl(&quot;Original|Prediction_mean&quot;,simulation),  label_key = simulation,
+              unhighlighted_params = list(size = 1)) +
+  ggtitle(&quot;VISA Stock Prediction via Stochastic Path&quot;) +
+  theme(legend.position = &quot;none&quot;) +
+  theme_minimal()</code></pre>
+<p><img src="/2020-03-26-predict-time-series-sampling-from-historical-data_files/figure-html/StochasticPath-1.png" width="672" /></p>
+</div>
+
+</div>
+
+
+  <footer class="container">
+  <div class="container navigation no-print">
+  <h2>Navigation</h2>
+  
+  
+
+    
+    <a class="prev" href="/how-to-fit-sigmoid-to-time-series-data/" title="How to fit sigmoid to time series data">
+      Previous
+    </a>
+    
+
+    
+
+  
+
+
+</div>
+
+  
+
+</footer>
+
+</article>
+      <footer id="main-footer" class="container main_footer">
+  
+
+  <div class="container nav foot no-print">
+  
+
+  <a class="toplink" href="#">back to top</a>
+
+</div>
+
+  <div class="container credits">
+  
+<div class="container footline">
+  
+  It&rsquo;s hard but you gotta keep trying
+
+
+</div>
+
+
+  
+<div class="container copyright">
+  
+  (c) 2020 Alvaro Aguado
+
+
+</div>
+
+
+</div>
+
+</footer>
+
+    </main>
+    
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+  </body>
+</html>
+

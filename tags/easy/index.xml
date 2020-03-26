@@ -9,10 +9,21 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/easy/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Predict time series sampling from historical data</title>
+      <link>/predict-time-series-sampling-from-historical-data/</link>
+      <pubDate>Thu, 26 Mar 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/predict-time-series-sampling-from-historical-data/</guid>
+      <description>This is part of a series of methods to predict stock performance by using different statistic approaches
+Question:How can I predict the performance of a stock or time series process using the distribution of the data?
+Solution:For this we will use a stock at random like VISA with ticker Vin the NYSE. To use this predictive method we calculate the density (probability) of the different daily returns and we calculate several paths that the stock could follow.</description>
+    </item>
     
     <item>
       <title>How to fit sigmoid to time series data</title>

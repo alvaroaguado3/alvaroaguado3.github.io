@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on rTales: DataScience in Short</title>
-    <link>/post/</link>
-    <description>Recent content in Posts on rTales: DataScience in Short</description>
+    <title>Stochastic Process on rTales: DataScience in Short</title>
+    <link>/tags/stochastic-process/</link>
+    <description>Recent content in Stochastic Process on rTales: DataScience in Short</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-EN</language>
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
@@ -11,15 +11,15 @@
     <copyright>(c) 2020 Alvaro Aguado</copyright>
     <lastBuildDate>Thu, 26 Mar 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/stochastic-process/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Predict time series sampling from historical data</title>
-      <link>/2020/03/26/predict-time-series-sampling-from-historical-data/</link>
+      <link>/predict-time-series-sampling-from-historical-data/</link>
       <pubDate>Thu, 26 Mar 2020 00:00:00 +0000</pubDate>
       <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
-      <guid>/2020/03/26/predict-time-series-sampling-from-historical-data/</guid>
+      <guid>/predict-time-series-sampling-from-historical-data/</guid>
       <description>This is part of a series of methods to predict stock performance by using different statistic approaches
 Question:How can I predict the performance of a stock or time series process using the distribution of the data?
 Solution:For this we will use a stock at random like VISA with ticker Vin the NYSE. To use this predictive method we calculate the density (probability) of the different daily returns and we calculate several paths that the stock could follow.</description>

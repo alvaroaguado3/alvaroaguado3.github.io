@@ -9,10 +9,19 @@
     <managingEditor>alvaroaguado3@gmail.com (Alvaro Aguado)</managingEditor>
     <webMaster>alvaroaguado3@gmail.com (Alvaro Aguado)</webMaster>
     <copyright>(c) 2020 Alvaro Aguado</copyright>
-    <lastBuildDate>Sun, 22 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/topics/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>topic 1</title>
+      <link>/topics/topic-1/</link>
+      <pubDate>Thu, 26 Mar 2020 00:00:00 +0000</pubDate>
+      <author>alvaroaguado3@gmail.com (Alvaro Aguado)</author>
+      <guid>/topics/topic-1/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>R</title>
