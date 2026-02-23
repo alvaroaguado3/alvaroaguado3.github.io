@@ -583,9 +583,59 @@ body {
     padding-left: 1rem;
 }
 
+/* Publications Section */
+.publications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.publication-item {
+    padding: 1.25rem;
+    background: var(--color-card-bg);
+    border-left: 3px solid var(--color-accent);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.publication-item:hover {
+    border-left-width: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.publication-text {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text);
+}
+
+.publication-text strong {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.publication-text em {
+    font-style: italic;
+}
+
+.publication-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.publication-link:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .blog-list {
         grid-template-columns: 1fr;
         gap: 2rem;
+    }
+    
+    .publication-text {
+        font-size: 0.9rem;
     }
 }
