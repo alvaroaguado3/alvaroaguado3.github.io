@@ -86,3 +86,94 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+/* ==========================================================================
+   Writing feed — renders posts.json into #posts-container.
+   posts.json is maintained by .github/workflows/add-post.yml, which appends
+   an entry whenever an issue using the "New post" template is opened.
+   ========================================================================== */
+(function () {
+    const container = document.getElementById('posts-container');
+    if (!container) return;
+
+    const escapeHtml = (value) =>
+        String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+
+    const safeUrl = (value) => {
+        const url = String(value == null ? '' : value).trim();
+        return /^https?:\/\//i.test(url) ? url : '';
+    };
+
+    const formatDate = (value) => {
+        if (!value) return '';
+        const parsed = new Date(value);
+        if (isNaN(parsed.getTime())) return escapeHtml(value);
+        return parsed.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            timeZone: 'UTC'
+        });
+    };
+
+    const render = (posts) => {
+        if (!Array.isArray(posts) || posts.length === 0) {
+            container.innerHTML =
+                '<p class="posts-status">No posts listed yet.</p>';
+            return;
+        }
+
+        const sorted = posts
+            .filter((post) => post && safeUrl(post.url))
+            .sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
+
+        container.innerHTML = sorted
+            .map((post) => {
+                const tags = Array.isArray(post.tags)
+                    ? post.tags
+                          .slice(0, 6)
+                          .map((tag) => `<span class="tag">${escapeHtml(tag)}</span>`)
+                          .join('')
+                    : '';
+                const date = formatDate(post.date);
+                const source = post.source ? escapeHtml(post.source) : '';
+                const meta = [
+                    source ? `<span class="post-source">${source}</span>` : '',
+                    date
+                ]
+                    .filter(Boolean)
+                    .join(' · ');
+
+                return [
+                    `<a class="post-item" href="${escapeHtml(safeUrl(post.url))}" target="_blank" rel="noopener">`,
+                    '<div class="post-head">',
+                    `<h3 class="post-title">${escapeHtml(post.title || 'Untitled')}</h3>`,
+                    meta ? `<span class="post-meta">${meta}</span>` : '',
+                    '</div>',
+                    post.summary
+                        ? `<p class="post-summary">${escapeHtml(post.summary)}</p>`
+                        : '',
+                    tags ? `<div class="project-tags">${tags}</div>` : '',
+                    '</a>'
+                ].join('');
+            })
+            .join('');
+    };
+
+    fetch('posts.json', { cache: 'no-cache' })
+        .then((response) => {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.json();
+        })
+        .then((data) => render(Array.isArray(data) ? data : data.posts))
+        .catch(() => {
+            container.innerHTML =
+                '<p class="posts-status">Could not load the writing list. ' +
+                'It is available in <a href="posts.json">posts.json</a>.</p>';
+        });
+})();

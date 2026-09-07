@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Can you infer who to follow on Twitter?",
+    "url": "https://medium.com/social-media-theories-ethics-and-analytics/can-you-infer-who-to-follow-on-twitter-ebb9d3baa6a6",
+    "source": "Medium",
+    "date": "",
+    "summary": "Using network structure to predict which accounts a user should follow, and what that reveals about how recommendation works on social graphs.",
+    "tags": ["Network Science", "Social Media", "Graph Analysis"]
+  },
+  {
+    "title": "Are you part of a Twitter tribe?",
+    "url": "https://medium.com/social-media-theories-ethics-and-analytics/are-you-part-of-a-twitter-tribe-6cd1201800e6",
+    "source": "Medium",
+    "date": "",
+    "summary": "Community detection on the Twitter follow graph: how tribes form, how tightly they close, and what membership predicts about the content you see.",
+    "tags": ["Community Detection", "Social Media", "Clustering"]
+  },
+  {
+    "title": "Hashtag virality: what drives viral content?",
+    "url": "https://medium.com/social-media-theories-ethics-and-analytics/hashtag-virality-what-drives-viral-content-ea74981462c2",
+    "source": "Medium",
+    "date": "",
+    "summary": "A statistical look at which network and content features actually separate hashtags that spread from hashtags that stall.",
+    "tags": ["Virality", "Social Media", "Statistics"]
+  }
+]

@@ -1,0 +1,65 @@
+name: Add a post to the website
+description: Paste a LinkedIn post, article or talk link and it will appear in the Writing section of alvaroaguado3.github.io.
+title: "[post] "
+labels: ["post"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fill this in right after publishing on LinkedIn. When you submit, a GitHub Action
+        appends the entry to `posts.json`, pushes it, and closes this issue.
+        The site picks it up on the next page load.
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: Full link to the post, article or talk.
+      placeholder: https://www.linkedin.com/posts/alvaroaguadophd_...
+    validations:
+      required: true
+
+  - type: input
+    id: post_title
+    attributes:
+      label: Title
+      description: How it should read on the site.
+      placeholder: What happens when your forecast knows it might be wrong?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source
+    attributes:
+      label: Source
+      options:
+        - LinkedIn
+        - Medium
+        - Website
+        - Talk
+        - Paper
+        - Other
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: "Format: YYYY-MM-DD. Leave blank to use today's date."
+      placeholder: 2026-09-07
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: One or two sentences shown under the title. Optional.
+      placeholder: Conformal prediction turns a point forecast into an interval with a coverage guarantee — here is what that changes for planning.
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated, up to six. Optional.
+      placeholder: Forecasting, Conformal Prediction, Uncertainty

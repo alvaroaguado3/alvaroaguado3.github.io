@@ -1,0 +1,60 @@
+name: Add post to posts.json
+
+# Triggered by an issue created from the "Add a post to the website" template.
+# Only the repository owner can drive this — anyone else's issue is ignored.
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: add-post
+  cancel-in-progress: false
+
+jobs:
+  add-post:
+    if: >-
+      github.event.issue.user.login == github.repository_owner &&
+      contains(join(github.event.issue.labels.*.name, ','), 'post')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Append the post to posts.json
+        id: append
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: python scripts/add_post.py
+
+      - name: Commit and push
+        if: steps.append.outputs.changed == 'true'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts.json
+          git commit -m "Add post: ${{ steps.append.outputs.title }} (#${{ github.event.issue.number }})"
+          git push
+
+      - name: Report back on the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CHANGED: ${{ steps.append.outputs.changed }}
+          MESSAGE: ${{ steps.append.outputs.message }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "$MESSAGE"
+          if [ "$CHANGED" = "true" ]; then
+            gh issue close "$ISSUE_NUMBER"
+          fi
